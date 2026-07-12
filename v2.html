@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bản Tin Sáng — 12/07/2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:#EFEEE6; --ink:#1C2321; --brass:#9C6B1F; --moss:#48583F;
+  --line:rgba(28,35,33,.16);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; line-height:1.55; }
+a { color:inherit; text-decoration:none; }
+.wrap { max-width:1240px; margin:0 auto; padding:0 32px; }
+.masthead { border-bottom:2px solid var(--ink); padding:36px 0 20px; }
+.masthead .wrap { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+.masthead h1 { font-family:'Fraunces',serif; font-weight:700; font-size:52px; letter-spacing:-.01em; }
+.masthead h1 em { font-style:italic; color:var(--brass); }
+.meta { text-align:right; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--moss); }
+.meta .today { display:block; color:var(--ink); font-size:13.5px; margin-bottom:4px; }
+.refresh-btn { display:inline-block; margin-top:8px; font-family:'IBM Plex Mono',monospace; font-size:11.5px;
+  border:1px solid var(--brass); color:var(--brass); padding:5px 12px; letter-spacing:.05em; }
+.refresh-btn:hover { background:var(--brass); color:var(--paper); }
+.ticker { border-bottom:1px solid var(--ink); background:var(--ink); color:var(--paper); overflow:hidden; white-space:nowrap; }
+.ticker-track { display:inline-block; padding:9px 0; animation:tick 90s linear infinite; }
+.ticker:hover .ticker-track { animation-play-state:paused; }
+.tk { font-family:'IBM Plex Mono',monospace; font-size:12.5px; margin-right:48px; }
+.tk-src { color:var(--brass); margin-right:10px; }
+.tk:hover { text-decoration:underline; }
+@keyframes tick { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .ticker-track { animation:none; } .ticker { overflow-x:auto; } }
+.tabbar { position:sticky; top:0; z-index:10; background:var(--paper); border-bottom:1px solid var(--ink); }
+.tabbar .wrap { display:flex; gap:4px; overflow-x:auto; }
+.tab-btn { font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.04em;
+  background:none; border:none; border-bottom:3px solid transparent; color:var(--moss);
+  padding:13px 14px 10px; cursor:pointer; white-space:nowrap; }
+.tab-btn:hover { color:var(--ink); }
+.tab-btn.active { color:var(--ink); border-bottom-color:var(--brass); font-weight:500; }
+.tab-panel { display:none; padding:40px 0 8px; }
+.tab-panel.active { display:block; }
+.slide-nav { max-width:1240px; margin:-8px auto 14px; padding:0 32px; display:flex; align-items:center; gap:12px; }
+.slide-btn { font-family:'IBM Plex Mono',monospace; font-size:16px; line-height:1; width:30px; height:30px;
+  border:1px solid var(--ink); background:#fbfaf4; color:var(--ink); cursor:pointer; }
+.slide-btn:hover { background:var(--brass); border-color:var(--brass); color:var(--paper); }
+.slide-hint { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--moss); }
+.slide-track { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth; }
+.slide-track::-webkit-scrollbar { height:6px; }
+.slide-track::-webkit-scrollbar-thumb { background:var(--line); }
+.slide-page { flex:0 0 100%; scroll-snap-align:start; }
+.sec-head { max-width:1240px; margin:0 auto 20px; padding:0 32px; display:flex; align-items:center; gap:18px; }
+.sec-head h2 { font-family:'Fraunces',serif; font-weight:600; font-size:27px; white-space:nowrap; }
+.rule { flex:1; height:1px; background:var(--ink); position:relative; }
+.rule::after { content:""; position:absolute; right:0; top:-3px; width:7px; height:7px; background:var(--brass); }
+.sec-brief { max-width:1240px; margin:-6px auto 24px; padding:0 32px; font-size:14.5px; color:rgba(28,35,33,.85);
+  border-left:3px solid var(--brass); margin-left:auto; }
+.sec-brief, .briefs { }
+.grid { max-width:1240px; margin:0 auto; padding:0 32px; display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+@media (max-width:1080px) { .grid { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:640px) { .grid { grid-template-columns:1fr; } .masthead h1 { font-size:36px; } .meta { text-align:left; } }
+.card { display:flex; flex-direction:column; border:1px solid var(--line); background:#fbfaf4; }
+.thumb { aspect-ratio:16/9; background-size:cover; background-position:center; border-bottom:1px solid var(--line); }
+.thumb-empty { display:flex; align-items:center; justify-content:center;
+  background:repeating-linear-gradient(45deg,#e6e4d8 0 10px,#efeee6 10px 20px); }
+.thumb-empty span { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--moss); letter-spacing:.08em; text-transform:uppercase; }
+.card-body { padding:14px 16px 16px; display:flex; flex-direction:column; gap:8px; flex:1; }
+.card-top { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.src { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--brass); }
+.hot-badge { font-family:'IBM Plex Mono',monospace; font-size:10px; color:#8a3324; border:1px solid #8a3324;
+  padding:1px 6px; letter-spacing:.05em; white-space:nowrap; }
+.card h3 { font-family:'Fraunces',serif; font-weight:600; font-size:17.5px; line-height:1.32; }
+.card h3 a:hover { text-decoration:underline; text-decoration-color:var(--brass); }
+.card p { font-size:13.5px; color:rgba(28,35,33,.78); flex:1; }
+.card time { font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--moss); }
+.briefs { max-width:1240px; margin:0 auto; padding:0 32px; display:grid; grid-template-columns:repeat(2,1fr); gap:18px 32px; }
+@media (max-width:900px) { .briefs { grid-template-columns:1fr; } }
+.brief { border:1px solid var(--line); background:#fbfaf4; padding:16px 18px; border-top:3px solid var(--brass); }
+.brief h4 { margin-bottom:6px; }
+.brief-link { font-family:'Fraunces',serif; font-weight:600; font-size:18px; background:none; border:none;
+  cursor:pointer; color:var(--ink); padding:0; }
+.brief-link:hover { text-decoration:underline; text-decoration-color:var(--brass); }
+.brief p { font-size:13.5px; color:rgba(28,35,33,.82); }
+.note { max-width:1240px; margin:18px auto 0; padding:0 32px; font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px; color:var(--moss); }
+.empty { max-width:1240px; margin:0 auto; padding:0 32px; color:var(--moss); font-size:14px; }
+footer { margin-top:56px; border-top:2px solid var(--ink); padding:28px 0 44px; font-size:13px; }
+footer h4 { font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--moss); margin-bottom:10px; }
+details { margin-top:14px; }
+summary { cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--moss); }
+.diag { list-style:none; margin-top:10px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; line-height:1.9; }
+.diag .ok { color:var(--moss); }
+.diag .err { color:#8a3324; }
+.diag-url { opacity:.55; }
+.disclaimer { margin-top:14px; color:rgba(28,35,33,.6); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <h1>Bản Tin <em>Sáng</em></h1>
+    <div class="meta">
+      <span class="today">Chủ Nhật, ngày 12/07/2026</span>
+      Cập nhật lúc 14:12 ngày 12/07/2026 (giờ Việt Nam)<br>Tự động cập nhật hằng ngày<br>
+      <a class="refresh-btn" href="https://github.com/irisnguyen0411-lgtm/ban-tin-sang/actions/workflows/update.yml" target="_blank" rel="noopener" title="Mở GitHub → bấm Run workflow → chờ 30 giây → tải lại trang này">⟳ Cập nhật tin ngay</a>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-label="Tin nổi bật">
+  <div class="ticker-track"><a class="tk" href="https://vnexpress.net/dung-may-tinh-bao-activate-windows-co-vi-pham-ban-quyen-5096371.html" target="_blank" rel="noopener"><span class="tk-src">VnExpress</span>Dùng máy tính báo &#x27;Activate Windows&#x27; có vi phạm bản quyền?</a><a class="tk" href="https://znews.vn/co-phieu-pnj-truoc-khi-bi-ban-thao-post1668563.html" target="_blank" rel="noopener"><span class="tk-src">Znews</span>Cổ phiếu PNJ trước khi bị bán tháo</a><a class="tk" href="https://thanhnien.vn/quan-che-hon-60-nam-o-tphcm-huong-hoa-nhai-niu-chan-nhieu-the-he-khach-185260704011733056.htm" target="_blank" rel="noopener"><span class="tk-src">Thanh Niên</span>Quán chè hơn 60 năm ở TP.HCM: Hương hoa nhài níu chân nhiều thế hệ khách</a><a class="tk" href="https://thanhnien.vn/hanh-trinh-vuot-kho-cua-nam-sinh-tphcm-ba-la-nguon-dong-luc-de-con-buoc-tiep-185260711090205618.htm" target="_blank" rel="noopener"><span class="tk-src">Thanh Niên</span>Hành trình vượt khó của nam sinh TP.HCM: &#x27;Ba là nguồn động lực để con bước tiếp&#x27;</a><a class="tk" href="https://znews.vn/dua-thi-the-15-nan-nhan-vu-lat-ca-no-ve-tphcm-khan-truong-dieu-tra-nguyen-nhan-post1668008.html" target="_blank" rel="noopener"><span class="tk-src">Znews</span>Đưa thi thể 15 nạn nhân vụ lật ca nô về TP.HCM, khẩn trương điều tra nguyên nhân</a><a class="tk" href="https://znews.vn/ngan-hang-nha-nuoc-khuyen-cao-nguoi-mua-ban-vang-mieng-luu-y-dieu-nay-post1668549.html" target="_blank" rel="noopener"><span class="tk-src">Znews</span>Ngân hàng Nhà nước khuyến cáo người mua bán vàng miếng lưu ý điều này</a><a class="tk" href="https://cafef.vn/chuong-duong-corp-muon-vay-ngan-hang-han-muc-300-ty-dong-de-lam-gi-188260712101135556.chn" target="_blank" rel="noopener"><span class="tk-src">CafeF</span>Chương Dương Corp muốn vay ngân hàng hạn mức 300 tỷ đồng để làm gì?</a><a class="tk" href="https://cafef.vn/the-gioi-di-dong-hoan-tat-phat-hanh-hon-7-trieu-co-phieu-esop-188260712100456417.chn" target="_blank" rel="noopener"><span class="tk-src">CafeF</span>Thế giới Di động hoàn tất phát hành hơn 7 triệu cổ phiếu ESOP</a><a class="tk" href="https://vnexpress.net/co-phieu-vietnam-airlines-duoc-go-han-che-giao-dich-5096409.html" target="_blank" rel="noopener"><span class="tk-src">VnExpress</span>Cổ phiếu Vietnam Airlines được gỡ hạn chế giao dịch</a><a class="tk" href="https://thanhnien.vn/gia-bitcoin-hom-nay-1272026-nghi-si-my-keu-goi-dieu-tra-ong-trump-vi-tien-so-185260712072514584.htm" target="_blank" rel="noopener"><span class="tk-src">Thanh Niên</span>Giá Bitcoin hôm nay 12.7.2026: Nghị sĩ Mỹ kêu gọi điều tra ông Trump vì tiền số</a><a class="tk" href="https://vnexpress.net/32-nganh-cua-bach-khoa-tp-hcm-duoc-cap-hoc-bong-3-7-5-5-trieu-dong-thang-5096217.html" target="_blank" rel="noopener"><span class="tk-src">VnExpress</span>32 ngành của Bách khoa TP HCM được cấp học bổng 3,7-5,5 triệu đồng/tháng</a><a class="tk" href="https://news.google.com/rss/articles/CBMifkFVX3lxTE5vNTU3ZG9OOHZhZW1VNzFWS3VNUzhnZWVsODJYMkhRbVlzUFpXcTlvcVdIWXRmaGhPUlZCMzdPWWN3MkN0NHZ3SXpYZnotNjVVSWVCSkE0NklBSFpUXzd6UkF3QU1DRDlhZGp4enNta2h1S1F2ZGtYNml0QllWZw?oc=5" target="_blank" rel="noopener"><span class="tk-src">Tatler</span>Bản quyền thể thao: Cuộc chiến phía sau</a><a class="tk" href="https://vnexpress.net/dung-may-tinh-bao-activate-windows-co-vi-pham-ban-quyen-5096371.html" target="_blank" rel="noopener"><span class="tk-src">VnExpress</span>Dùng máy tính báo &#x27;Activate Windows&#x27; có vi phạm bản quyền?</a><a class="tk" href="https://znews.vn/co-phieu-pnj-truoc-khi-bi-ban-thao-post1668563.html" target="_blank" rel="noopener"><span class="tk-src">Znews</span>Cổ phiếu PNJ trước khi bị bán tháo</a><a class="tk" href="https://thanhnien.vn/quan-che-hon-60-nam-o-tphcm-huong-hoa-nhai-niu-chan-nhieu-the-he-khach-185260704011733056.htm" target="_blank" rel="noopener"><span class="tk-src">Thanh Niên</span>Quán chè hơn 60 năm ở TP.HCM: Hương hoa nhài níu chân nhiều thế hệ khách</a><a class="tk" href="https://thanhnien.vn/hanh-trinh-vuot-kho-cua-nam-sinh-tphcm-ba-la-nguon-dong-luc-de-con-buoc-tiep-185260711090205618.htm" target="_blank" rel="noopener"><span class="tk-src">Thanh Niên</span>Hành trình vượt khó của nam sinh TP.HCM: &#x27;Ba là nguồn động lực để con bước tiếp&#x27;</a><a class="tk" href="https://znews.vn/dua-thi-the-15-nan-nhan-vu-lat-ca-no-ve-tphcm-khan-truong-dieu-tra-nguyen-nhan-post1668008.html" target="_blank" rel="noopener"><span class="tk-src">Znews</span>Đưa thi thể 15 nạn nhân vụ lật ca nô về TP.HCM, khẩn trương điều tra nguyên nhân</a><a class="tk" href="https://znews.vn/ngan-hang-nha-nuoc-khuyen-cao-nguoi-mua-ban-vang-mieng-luu-y-dieu-nay-post1668549.html" target="_blank" rel="noopener"><span class="tk-src">Znews</span>Ngân hàng Nhà nước khuyến cáo người mua bán vàng miếng lưu ý điều này</a><a class="tk" href="https://cafef.vn/chuong-duong-corp-muon-vay-ngan-hang-han-muc-300-ty-dong-de-lam-gi-188260712101135556.chn" target="_blank" rel="noopener"><span class="tk-src">CafeF</span>Chương Dương Corp muốn vay ngân hàng hạn mức 300 tỷ đồng để làm gì?</a><a class="tk" href="https://cafef.vn/the-gioi-di-dong-hoan-tat-phat-hanh-hon-7-trieu-co-phieu-esop-188260712100456417.chn" target="_blank" rel="noopener"><span class="tk-src">CafeF</span>Thế giới Di động hoàn tất phát hành hơn 7 triệu cổ phiếu ESOP</a><a class="tk" href="https://vnexpress.net/co-phieu-vietnam-airlines-duoc-go-han-che-giao-dich-5096409.html" target="_blank" rel="noopener"><span class="tk-src">VnExpress</span>Cổ phiếu Vietnam Airlines được gỡ hạn chế giao dịch</a><a class="tk" href="https://thanhnien.vn/gia-bitcoin-hom-nay-1272026-nghi-si-my-keu-goi-dieu-tra-ong-trump-vi-tien-so-185260712072514584.htm" target="_blank" rel="noopener"><span class="tk-src">Thanh Niên</span>Giá Bitcoin hôm nay 12.7.2026: Nghị sĩ Mỹ kêu gọi điều tra ông Trump vì tiền số</a><a class="tk" href="https://vnexpress.net/32-nganh-cua-bach-khoa-tp-hcm-duoc-cap-hoc-bong-3-7-5-5-trieu-dong-thang-5096217.html" target="_blank" rel="noopener"><span class="tk-src">VnExpress</span>32 ngành của Bách khoa TP HCM được cấp học bổng 3,7-5,5 triệu đồng/tháng</a><a class="tk" href="https://news.google.com/rss/articles/CBMifkFVX3lxTE5vNTU3ZG9OOHZhZW1VNzFWS3VNUzhnZWVsODJYMkhRbVlzUFpXcTlvcVdIWXRmaGhPUlZCMzdPWWN3MkN0NHZ3SXpYZnotNjVVSWVCSkE0NklBSFpUXzd6UkF3QU1DRDlhZGp4enNta2h1S1F2ZGtYNml0QllWZw?oc=5" target="_blank" rel="noopener"><span class="tk-src">Tatler</span>Bản quyền thể thao: Cuộc chiến phía sau</a></div>
+</div>
+
+<nav class="tabbar"><div class="wrap"><button class="tab-btn active" data-target="tab-tong-hop">Tổng hợp</button><button class="tab-btn" data-target="tab-kinh-te">Kinh tế vĩ mô &amp; Thị trường</button><button class="tab-btn" data-target="tab-doanh-nghiep">Doanh nghiệp &amp; Kinh doanh</button><button class="tab-btn" data-target="tab-xa-hoi">Xã hội &amp; Đời sống đô thị</button><button class="tab-btn" data-target="tab-tam-ly">Tâm lý &amp; Phong cách sống</button><button class="tab-btn" data-target="tab-su-nghiep">Sự nghiệp &amp; Xu hướng</button><button class="tab-btn" data-target="tab-cong-nghe">Công nghệ</button></div></nav>
+
+<main>
+  <section class="tab-panel active" id="tab-tong-hop">
+    <header class="sec-head"><h2>12 tin nổi bật</h2><span class="rule"></span></header>
+    <div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/11/man-hinh-may-tinh-active-windo-7351-5816-1783784034.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=yxCGi90wc5674jV7fTE8iA')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/dung-may-tinh-bao-activate-windows-co-vi-pham-ban-quyen-5096371.html" target="_blank" rel="noopener">Dùng máy tính báo &#x27;Activate Windows&#x27; có vi phạm bản quyền?</a></h3>
+          <p>Máy tính của tôi có dòng chữ &quot;Activate Windows&quot;, xin hỏi sử dụng có xem là vi phạm bản quyền hay không?</p>
+          <time>12/07/2026 · 14:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/spluwao/2025_04_26/NL970862.JPG')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/co-phieu-pnj-truoc-khi-bi-ban-thao-post1668563.html" target="_blank" rel="noopener">Cổ phiếu PNJ trước khi bị bán tháo</a></h3>
+          <p>Trước khi bị bán tháo sau lùm xùm liên quan PNJ Lab, cổ phiếu PNJ từng lập đỉnh lịch sử vào đầu năm 2026 sau gần 2 thập kỷ tăng trưởng liên tục.</p>
+          <time>12/07/2026 · 12:40</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://images2.thanhnien.vn/zoom/600_315/528068263637045248/2026/7/3/edit_photo_vyhblsjcys-1783832227.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Thanh Niên</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://thanhnien.vn/quan-che-hon-60-nam-o-tphcm-huong-hoa-nhai-niu-chan-nhieu-the-he-khach-185260704011733056.htm" target="_blank" rel="noopener">Quán chè hơn 60 năm ở TP.HCM: Hương hoa nhài níu chân nhiều thế hệ khách</a></h3>
+          <p>Là một trong những quán chè lâu đời ở TP.HCM, Hiển Khánh vẫn giữ hương vị chè Bắc suốt hơn 60 năm và trở thành điểm hẹn quen thuộc của nhiều thế hệ thực khách.</p>
+          <time>12/07/2026 · 12:12</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://images2.thanhnien.vn/zoom/600_315/528068263637045248/2026/7/11/edit_photo_tivllewesd-1783832821.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Thanh Niên</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://thanhnien.vn/hanh-trinh-vuot-kho-cua-nam-sinh-tphcm-ba-la-nguon-dong-luc-de-con-buoc-tiep-185260711090205618.htm" target="_blank" rel="noopener">Hành trình vượt khó của nam sinh TP.HCM: &#x27;Ba là nguồn động lực để con bước tiếp&#x27;</a></h3>
+          <p>Mất cha khi còn quá nhỏ, một nam sinh TP.HCM đã nỗ lực vượt khó, giành học bổng để tiếp tục con đường học vấn.</p>
+          <time>12/07/2026 · 12:03</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/oplukaa/2026_07_10/z8033814502632_a221838e8bfb746e3941d057f889df6d_251.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/dua-thi-the-15-nan-nhan-vu-lat-ca-no-ve-tphcm-khan-truong-dieu-tra-nguyen-nhan-post1668008.html" target="_blank" rel="noopener">Đưa thi thể 15 nạn nhân vụ lật ca nô về TP.HCM, khẩn trương điều tra nguyên nhân</a></h3>
+          <p>Sức khỏe các du khách bị thương trong vụ lật ca nô trên vùng biển An Thới (đặc khu Phú Quốc) cơ bản ổn định. Sáng 12/7, chính quyền địa phương đưa thi thể 15 nạn nhân vào đất liền.</p>
+          <time>12/07/2026 · 11:56</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/vpcvodbp/2026_02_24/MuabanvangThanTai2026_znews_11_.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/ngan-hang-nha-nuoc-khuyen-cao-nguoi-mua-ban-vang-mieng-luu-y-dieu-nay-post1668549.html" target="_blank" rel="noopener">Ngân hàng Nhà nước khuyến cáo người mua bán vàng miếng lưu ý điều này</a></h3>
+          <p>NHNN Chi nhánh Khu vực 1 (Hà Nội) khuyến cáo người dân chỉ mua bán vàng miếng tại các ngân hàng, doanh nghiệp được cấp phép và thanh toán qua tài khoản với giao dịch từ 20 triệu.</p>
+          <time>12/07/2026 · 11:21</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cafefcdn.com/zoom/600_315/203337114487263232/2026/7/12/avatar1783825852384-1783825852680202617561.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">CafeF</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://cafef.vn/chuong-duong-corp-muon-vay-ngan-hang-han-muc-300-ty-dong-de-lam-gi-188260712101135556.chn" target="_blank" rel="noopener">Chương Dương Corp muốn vay ngân hàng hạn mức 300 tỷ đồng để làm gì?</a></h3>
+          <p>Chương Dương Corp vừa thông qua hạn mức tín dụng 300 tỷ đồng tại VIB nhằm bổ sung vốn lưu động phục vụ hoạt động thi công xây lắp, xây dựng phù hợp với ngành nghề kinh doanh.</p>
+          <time>12/07/2026 · 10:59</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cafefcdn.com/zoom/600_315/203337114487263232/2026/7/12/avatar1783825447636-178382544840013860879.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">CafeF</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://cafef.vn/the-gioi-di-dong-hoan-tat-phat-hanh-hon-7-trieu-co-phieu-esop-188260712100456417.chn" target="_blank" rel="noopener">Thế giới Di động hoàn tất phát hành hơn 7 triệu cổ phiếu ESOP</a></h3>
+          <p>Thế giới Di Động đã phân phối thành công hơn 7,3 triệu cổ phiếu ESOP cho 66 người lao động với giá 10.000 đồng/cổ phiếu.</p>
+          <time>12/07/2026 · 10:59</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-kinhdoanh.vnecdn.net/2026/07/12/vie-c-ta-ng-ta-n-sua-t-khai-th-3879-5988-1783817482.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=DBFqG63ohiJRabd1Y31wCg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/co-phieu-vietnam-airlines-duoc-go-han-che-giao-dich-5096409.html" target="_blank" rel="noopener">Cổ phiếu Vietnam Airlines được gỡ hạn chế giao dịch</a></h3>
+          <p>Cổ phiếu HVN của Vietnam Airlines sẽ được đưa ra khỏi diện hạn chế giao dịch từ ngày 14/7, sau khi doanh nghiệp có hai năm liên tiếp báo lãi và vốn chủ sở hữu chuyển dương.</p>
+          <time>12/07/2026 · 10:17</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://images2.thanhnien.vn/zoom/600_315/528068263637045248/2026/7/12/editphotospxqjjnwgm-1783817124-100-0-1600-2400-crop-17838176407911411116407.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Thanh Niên</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://thanhnien.vn/gia-bitcoin-hom-nay-1272026-nghi-si-my-keu-goi-dieu-tra-ong-trump-vi-tien-so-185260712072514584.htm" target="_blank" rel="noopener">Giá Bitcoin hôm nay 12.7.2026: Nghị sĩ Mỹ kêu gọi điều tra ông Trump vì tiền số</a></h3>
+          <p>Một nhóm thượng nghị sĩ đảng Dân chủ cáo buộc Tổng thống Mỹ Donald Trump trục lợi bất chính từ các dự án tiền số, kêu gọi một cuộc điều tra chính thức.</p>
+          <time>12/07/2026 · 08:17</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/11/td5-1783739612-3051-1783742619.webp?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=RK5794aJnR8YEHOmTt9wmw')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/32-nganh-cua-bach-khoa-tp-hcm-duoc-cap-hoc-bong-3-7-5-5-trieu-dong-thang-5096217.html" target="_blank" rel="noopener">32 ngành của Bách khoa TP HCM được cấp học bổng 3,7-5,5 triệu đồng/tháng</a></h3>
+          <p>Sinh viên theo học 32 ngành của trường Đại học Bách khoa TP HCM được Chính phủ cấp học bổng 3,7-5,5 triệu đồng mỗi tháng.</p>
+          <time>11/07/2026 · 20:03</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb thumb-empty"><span>Tatler</span></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Tatler</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://news.google.com/rss/articles/CBMifkFVX3lxTE5vNTU3ZG9OOHZhZW1VNzFWS3VNUzhnZWVsODJYMkhRbVlzUFpXcTlvcVdIWXRmaGhPUlZCMzdPWWN3MkN0NHZ3SXpYZnotNjVVSWVCSkE0NklBSFpUXzd6UkF3QU1DRDlhZGp4enNta2h1S1F2ZGtYNml0QllWZw?oc=5" target="_blank" rel="noopener">Bản quyền thể thao: Cuộc chiến phía sau</a></h3>
+          <p>Bản quyền thể thao: Cuộc chiến phía sau Tatler Asia</p>
+          <time>10/07/2026 · 22:23</time>
+        </div>
+      </article></div>
+    <header class="sec-head" style="margin-top:40px"><h2>Điểm nhanh từng chuyên mục</h2><span class="rule"></span></header>
+    <div class="briefs"><div class="brief"><h4><button class="brief-link" data-target="tab-kinh-te">Kinh tế vĩ mô &amp; Thị trường</button></h4><p>Tâm điểm: “ngân hàng” và “cổ phiếu” — 2 báo cùng khai thác. Đáng chú ý: Chương Dương Corp muốn vay ngân hàng hạn mức 300 tỷ đồng để làm gì? (CafeF). Mới nhất: Co.opmart kỷ niệm 30 năm thành lập (VnExpress, 12/07/2026 · 13:00).</p></div><div class="brief"><h4><button class="brief-link" data-target="tab-doanh-nghiep">Doanh nghiệp &amp; Kinh doanh</button></h4><p>Đáng chú ý: Cổ phiếu PNJ trước khi bị bán tháo (Znews). Mới nhất: 30 năm Co.opmart khẳng định vị thế &#x27;Người nội trợ của nhân dân&#x27; (Znews, 12/07/2026 · 13:20).</p></div><div class="brief"><h4><button class="brief-link" data-target="tab-xa-hoi">Xã hội &amp; Đời sống đô thị</button></h4><p>Tâm điểm: “nạn nhân vụ” và “nhân vụ lật” — 2 báo cùng khai thác. Đáng chú ý: Đưa thi thể 15 nạn nhân vụ lật ca nô về TP.HCM, khẩn trương điều tra… (Znews). Mới nhất: Mưa gió quật ngã nhiều cây xanh, đè trúng ô tô ở TPHCM (VietNamNet, 12/07/2026 · 14:03).</p></div><div class="brief"><h4><button class="brief-link" data-target="tab-tam-ly">Tâm lý &amp; Phong cách sống</button></h4><p>Tâm điểm: “cuộc chiến” — 2 báo cùng khai thác. Đáng chú ý: Quán chè hơn 60 năm ở TP.HCM: Hương hoa nhài níu chân nhiều thế hệ khách (Thanh Niên). Mới nhất: 7 loại quả tốt cho tim mạch nên ăn mỗi tuần (VnExpress, 12/07/2026 · 13:00).</p></div><div class="brief"><h4><button class="brief-link" data-target="tab-su-nghiep">Sự nghiệp &amp; Xu hướng</button></h4><p>Đáng chú ý: 32 ngành của Bách khoa TP HCM được cấp học bổng 3,7-5,5 triệu đồng/tháng (VnExpress). Mới nhất: 10 đại học ở Hà Nội công bố ngành được cấp học bổng 3,7-5,5 triệu… (VnExpress, 12/07/2026 · 11:05).</p></div><div class="brief"><h4><button class="brief-link" data-target="tab-cong-nghe">Công nghệ</button></h4><p>Mới nhất: Dùng máy tính báo &#x27;Activate Windows&#x27; có vi phạm bản quyền? (VnExpress, 12/07/2026 · 14:00).</p></div></div>
+    <p class="note">Điểm nhanh được tổng hợp tự động từ tiêu đề trên các báo, không phải bài bình luận biên tập.</p>
+  </section>
+  <section class="tab-panel" id="tab-kinh-te">
+    <header class="sec-head"><h2>Kinh tế vĩ mô &amp; Thị trường</h2><span class="rule"></span></header>
+    <p class="sec-brief">Tâm điểm: “ngân hàng” và “cổ phiếu” — 2 báo cùng khai thác. Đáng chú ý: Chương Dương Corp muốn vay ngân hàng hạn mức 300 tỷ đồng để làm gì? (CafeF). Mới nhất: Co.opmart kỷ niệm 30 năm thành lập (VnExpress, 12/07/2026 · 13:00).</p>
+    <div class="slide-nav"><button class="slide-btn prev" aria-label="Tin mới hơn">‹</button><span class="slide-hint">Kéo ngang hoặc bấm mũi tên để xem 8 tin cũ hơn</span><button class="slide-btn next" aria-label="Tin cũ hơn">›</button></div><div class="slide-track"><div class="slide-page"><div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-kinhdoanh.vnecdn.net/2026/07/12/CCNGCH-1-JPG-1783829519-8946-1783830423.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=uDBA5hySuIN6WrmJQ9YTuw')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/co-opmart-ky-niem-30-nam-thanh-lap-5096461.html" target="_blank" rel="noopener">Co.opmart kỷ niệm 30 năm thành lập</a></h3>
+          <p>Saigon Co.op tổ chức Lễ kỷ niệm 30 năm thành lập thương hiệu Co.opmart (1996-2026) với chủ đề &quot;30 năm Thương hiệu Việt - người nội trợ của nhân dân&quot;, ngày 10/7.</p>
+          <time>12/07/2026 · 13:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://images2.thanhnien.vn/zoom/600_315/528068263637045248/2026/7/12/bd2-17838300543711006395543-0-0-1280-2048-crop-17838302623031748087836.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Thanh Niên</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://thanhnien.vn/nguyen-dai-su-my-marc-knapper-tham-gia-to-tu-van-trung-tam-tai-chinh-quoc-te-185260711200801337.htm" target="_blank" rel="noopener">Nguyên Đại sứ Mỹ Marc Knapper tham gia Tổ tư vấn Trung tâm tài chính quốc tế</a></h3>
+          <p>Trung tâm tài chính quốc tế Việt Nam tại TP.HCM (VIFC-HCMC) ra mắt Tổ tư vấn với 13 thành viên.</p>
+          <time>12/07/2026 · 12:07</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cafefcdn.com/zoom/600_315/203337114487263232/2026/7/12/avatar1783831161634-1783831162282534947942.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">CafeF</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://cafef.vn/chuyen-gia-du-bao-bat-ngo-ve-gia-vang-trong-nam-2026-18826071211400788.chn" target="_blank" rel="noopener">Chuyên gia dự báo bất ngờ về giá vàng trong năm 2026</a></h3>
+          <p>TS. Nguyễn Trí Hiếu dự báo giá vàng có thể giảm tiếp trong ngắn hạn trước khi phục hồi lên 4.200 USD/ounce vào cuối năm 2026. Nhưng chuyên gia cũng nhấn mạnh đây không phải kênh đầu tư ông ưu tiên…</p>
+          <time>12/07/2026 · 11:40</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://static-images.vnncdn.net/vps_images_publish/000001/000003/2026/7/12/tu-lanh-gia-re-chi-hon-2-trieu-dong-sau-rieng-mat-gia-do-xau-ma-1706.jpg?width=0&amp;amp;s=tTjlBJlpy4DkcSliId0bKw')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VietNamNet</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://vietnamnet.vn/tu-lanh-gia-re-chi-hon-2-trieu-dong-sau-rieng-dak-lak-mat-gia-do-xau-ma-2534927.html" target="_blank" rel="noopener">Tủ lạnh giá rẻ chỉ hơn 2 triệu đồng; sầu riêng mất giá do xấu mã</a></h3>
+          <p>Tủ lạnh giá hơn 2 triệu; nhiều mẫu iPhone hạ giá mạnh; sầu riêng ở Đắk Lắk xấu mã, thương lái đổi cách mua; điều chỉnh giá bán lẻ điện bình quân; hoá đơn tiền điện tăng mạnh... là tin tức thị trường…</p>
+          <time>12/07/2026 · 11:32</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://icdn.dantri.com.vn/2026/07/12/ty-phu-cropped-1783830134723.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Dân Trí</span></div>
+          <h3><a href="https://dantri.com.vn/kinh-doanh/cac-ty-phu-van-giu-mot-thoi-quen-hang-ngay-ma-nhieu-nguoi-da-bo-20260712081051275.htm" target="_blank" rel="noopener">Các tỷ phú vẫn giữ một thói quen hàng ngày mà nhiều người đã bỏ</a></h3>
+          <p>(Dân trí) - Trong khi nhiều người dần từ bỏ việc đọc sách để dành thời gian cho nội dung ngắn và AI, đây vẫn là thói quen được nhiều tỷ phú duy trì nhằm học hỏi và rèn luyện tư duy.</p>
+          <time>12/07/2026 · 11:23</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cafefcdn.com/zoom/600_315/203337114487263232/2026/7/12/avatar1783825852384-1783825852680202617561.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">CafeF</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://cafef.vn/chuong-duong-corp-muon-vay-ngan-hang-han-muc-300-ty-dong-de-lam-gi-188260712101135556.chn" target="_blank" rel="noopener">Chương Dương Corp muốn vay ngân hàng hạn mức 300 tỷ đồng để làm gì?</a></h3>
+          <p>Chương Dương Corp vừa thông qua hạn mức tín dụng 300 tỷ đồng tại VIB nhằm bổ sung vốn lưu động phục vụ hoạt động thi công xây lắp, xây dựng phù hợp với ngành nghề kinh doanh.</p>
+          <time>12/07/2026 · 10:59</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cafefcdn.com/zoom/600_315/203337114487263232/2026/7/12/avatar1783825447636-178382544840013860879.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">CafeF</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://cafef.vn/the-gioi-di-dong-hoan-tat-phat-hanh-hon-7-trieu-co-phieu-esop-188260712100456417.chn" target="_blank" rel="noopener">Thế giới Di động hoàn tất phát hành hơn 7 triệu cổ phiếu ESOP</a></h3>
+          <p>Thế giới Di Động đã phân phối thành công hơn 7,3 triệu cổ phiếu ESOP cho 66 người lao động với giá 10.000 đồng/cổ phiếu.</p>
+          <time>12/07/2026 · 10:59</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-kinhdoanh.vnecdn.net/2026/07/12/vie-c-ta-ng-ta-n-sua-t-khai-th-3879-5988-1783817482.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=DBFqG63ohiJRabd1Y31wCg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/co-phieu-vietnam-airlines-duoc-go-han-che-giao-dich-5096409.html" target="_blank" rel="noopener">Cổ phiếu Vietnam Airlines được gỡ hạn chế giao dịch</a></h3>
+          <p>Cổ phiếu HVN của Vietnam Airlines sẽ được đưa ra khỏi diện hạn chế giao dịch từ ngày 14/7, sau khi doanh nghiệp có hai năm liên tiếp báo lãi và vốn chủ sở hữu chuyển dương.</p>
+          <time>12/07/2026 · 10:17</time>
+        </div>
+      </article></div></div><div class="slide-page"><div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-kinhdoanh.vnecdn.net/2026/07/11/charleston-wv-1783782157-3558-1783782537.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=9zwAzE1edPPlog3LkWv7Nw')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/10-bang-co-chi-phi-song-re-nhat-nuoc-my-5096355.html" target="_blank" rel="noopener">10 bang có chi phí sống rẻ nhất nước Mỹ</a></h3>
+          <p>Top 10 bang có chi phí sống thấp nhất nước Mỹ chủ yếu thuộc vùng Trung Tây và nội địa, nơi thưa dân, giá nhà thấp, với đứng đầu là Tây Virginia.</p>
+          <time>12/07/2026 · 10:09</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cafefcdn.com/zoom/600_315/203337114487263232/2026/7/12/avatar1783825579377-1783825579798364153040.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">CafeF</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://cafef.vn/co-phieu-ltg-cua-loc-troi-vao-dien-canh-bao-tu-ngay-14-7-2026-188260712100705311.chn" target="_blank" rel="noopener">Cổ phiếu LTG của Lộc Trời vào diện cảnh báo từ ngày 14/7/2026</a></h3>
+          <p>Lý do cổ phiếu LTG bị đưa vào diện cảnh báo là vì Lộc Trời không thực hiện công bố thông tin Nghị quyết ĐHĐCĐ thường niên năm 2026 theo quy định.</p>
+          <time>12/07/2026 · 10:06</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cafefcdn.com/zoom/600_315/203337114487263232/2026/7/12/avatar1783825348045-1783825348371824717086.webp')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">CafeF</span></div>
+          <h3><a href="https://cafef.vn/gia-vang-hom-nay-12-7-nguoi-mua-lo-kep-sau-mot-tuan-188260712100320973.chn" target="_blank" rel="noopener">Giá vàng hôm nay (12/7): Người mua lỗ &#x27;kép&#x27; sau một tuần</a></h3>
+          <p>Sáng nay, giá vàng tiếp tục đi ngang sau nhiều phiên điều chỉnh. Với diễn biến này, những nhà đầu tư mua vàng từ đầu tuần và bán ra ở thời điểm hiện tại phải chịu khoản lỗ 4,5 triệu đồng/lượng, do…</p>
+          <time>12/07/2026 · 10:03</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://static-images.vnncdn.net/vps_images_publish/000001/000003/2026/7/11/ngan-hang-msb-chu-tam-trao-truyen-tao-diem-tua-vuon-xa-1681.jpg?width=0&amp;amp;s=9gB1AOglcxok_61sxYMVUw')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VietNamNet</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://vietnamnet.vn/ngan-hang-msb-chu-tam-trao-truyen-tao-diem-tua-vuon-xa-2534777.html" target="_blank" rel="noopener">Ngân hàng MSB - Chữ tâm trao truyền, tạo điểm tựa vươn xa</a></h3>
+          <p>Không phải di sản nào cũng khởi đầu từ những điều lớn lao. Có những di sản được vun đắp bằng chữ tín, chữ tâm và sự tử tế mỗi ngày. Khi được tiếp nối, đổi mới và phát triển, những giá trị ấy trở…</p>
+          <time>12/07/2026 · 10:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://icdn.dantri.com.vn/2025/04/03/cong-nhan-may-104-1658367206182-1743660828309.jpeg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Dân Trí</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://dantri.com.vn/kinh-doanh/hang-viet-doi-mat-nguy-co-cao-bi-dieu-tra-thuong-mai-giai-phap-la-gi-20260712070354235.htm" target="_blank" rel="noopener">Hàng Việt đối mặt nguy cơ cao bị điều tra thương mại, giải pháp là gì?</a></h3>
+          <p>(Dân trí) - Trong bối cảnh Mỹ liên tiếp mở các cuộc điều tra theo Mục 301, Bộ Công Thương cảnh báo nguy cơ hàng Việt tiếp tục bị điều tra thương mại và khuyến nghị doanh nghiệp chủ động ứng phó.</p>
+          <time>12/07/2026 · 09:32</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cdn2.tuoitre.vn/thumb_w/1200/471584752817336320/2026/7/12/thue-quang-dinh-17838321115401070657780-38-0-788-1200-crop-1783832261985994732847.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Tuổi Trẻ</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://tuoitre.vn/giam-tru-chi-phi-giao-duc-khong-co-hoa-don-nguoi-lao-dong-co-mat-quyen-loi-100260712120332406.htm" target="_blank" rel="noopener">Giảm trừ chi phí giáo dục: Không có hóa đơn, người lao động có mất quyền lợi?</a></h3>
+          <p>Theo quy định mới, người muốn được giảm trừ chi phí giáo dục, y tế phải tự quyết toán thuế và có hóa đơn, chứng từ theo quy định.</p>
+          <time></time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cdn2.tuoitre.vn/thumb_w/1200/471584752817336320/2026/7/6/qdphumyhungcaphehighlands4-1783147826302153894887-1783324096257733396570-0-0-687-1100-crop-17833252865541201089029.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Tuổi Trẻ</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://tuoitre.vn/quan-ca-phe-co-the-tra-phi-ban-quyen-am-nhac-qua-to-chuc-trung-gian-100260706151808637.htm" target="_blank" rel="noopener">Quán cà phê có thể trả phí bản quyền âm nhạc qua tổ chức trung gian</a></h3>
+          <p>Các chủ quán cà phê, nhà hàng có thể trả phí bản quyền theo năm qua các tổ chức trung gian.</p>
+          <time></time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cdn2.tuoitre.vn/thumb_w/1200/471584752817336320/2026/7/12/anh-1-17085880934371629808350-0-0-652-1043-crop-17838291804791003232964.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Tuổi Trẻ</span></div>
+          <h3><a href="https://tuoitre.vn/ban-khoan-hoa-don-dien-tang-vot-dua-loat-thiet-bi-dung-mua-nong-vao-dien-giam-sat-dac-biet-100260712110937785.htm" target="_blank" rel="noopener">Băn khoăn hóa đơn điện tăng vọt: Đưa loạt thiết bị dùng mùa nóng vào diện &#x27;giám sát đặc biệt&#x27;</a></h3>
+          <p>Nhiều hộ gia đình vẫn chưa thấy thuyết phục trước những lý giải vì sao hóa đơn tiền điện tăng vọt của ngành điện. Việc sử dụng công cụ theo dõi tiêu dùng điện là cách để giám sát công tơ, hóa đơn…</p>
+          <time></time>
+        </div>
+      </article></div></div></div>
+  </section>
+  <section class="tab-panel" id="tab-doanh-nghiep">
+    <header class="sec-head"><h2>Doanh nghiệp &amp; Kinh doanh</h2><span class="rule"></span></header>
+    <p class="sec-brief">Đáng chú ý: Cổ phiếu PNJ trước khi bị bán tháo (Znews). Mới nhất: 30 năm Co.opmart khẳng định vị thế &#x27;Người nội trợ của nhân dân&#x27; (Znews, 12/07/2026 · 13:20).</p>
+    <div class="slide-nav"><button class="slide-btn prev" aria-label="Tin mới hơn">‹</button><span class="slide-hint">Kéo ngang hoặc bấm mũi tên để xem 8 tin cũ hơn</span><button class="slide-btn next" aria-label="Tin cũ hơn">›</button></div><div class="slide-track"><div class="slide-page"><div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/wyhktpu/2026_07_12/5.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/30-nam-coopmart-khang-dinh-vi-the-nguoi-noi-tro-cua-nhan-dan-post1668477.html" target="_blank" rel="noopener">30 năm Co.opmart khẳng định vị thế &#x27;Người nội trợ của nhân dân&#x27;</a></h3>
+          <p>Tối 10/7, Saigon Co.op tổ chức lễ kỷ niệm 30 năm thành lập thương hiệu Co.opmart với chủ đề “30 năm thương hiệu Việt - người nội trợ của nhân dân”.</p>
+          <time>12/07/2026 · 13:20</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/spluwao/2025_04_26/NL970862.JPG')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/co-phieu-pnj-truoc-khi-bi-ban-thao-post1668563.html" target="_blank" rel="noopener">Cổ phiếu PNJ trước khi bị bán tháo</a></h3>
+          <p>Trước khi bị bán tháo sau lùm xùm liên quan PNJ Lab, cổ phiếu PNJ từng lập đỉnh lịch sử vào đầu năm 2026 sau gần 2 thập kỷ tăng trưởng liên tục.</p>
+          <time>12/07/2026 · 12:40</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/wpdhnwww3/2018_09_30/Vinfast.JPG')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/hai-khu-cong-nghiep-10000-ty-cua-vinhomes-o-hai-phong-co-dien-bien-moi-post1664709.html" target="_blank" rel="noopener">Hai khu công nghiệp 10.000 tỷ của Vinhomes ở Hải Phòng có diễn biến mới</a></h3>
+          <p>Hải Phòng vừa phê duyệt Quy hoạch chi tiết tỷ lệ 1/500 dự án xây dựng khu tái định cư phục vụ công tác giải phóng mặt bằng cho 2 KCN do công ty con của Vinhomes là chủ đầu tư.</p>
+          <time>12/07/2026 · 11:28</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/vpcvodbp/2026_02_24/MuabanvangThanTai2026_znews_11_.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/ngan-hang-nha-nuoc-khuyen-cao-nguoi-mua-ban-vang-mieng-luu-y-dieu-nay-post1668549.html" target="_blank" rel="noopener">Ngân hàng Nhà nước khuyến cáo người mua bán vàng miếng lưu ý điều này</a></h3>
+          <p>NHNN Chi nhánh Khu vực 1 (Hà Nội) khuyến cáo người dân chỉ mua bán vàng miếng tại các ngân hàng, doanh nghiệp được cấp phép và thanh toán qua tài khoản với giao dịch từ 20 triệu.</p>
+          <time>12/07/2026 · 11:21</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/mrndcqjwq/2026_07_12/phothutuongducsss_07263312.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/cuu-pho-thu-tuong-duc-goc-viet-tham-gia-to-tu-van-trung-tam-tai-chinh-post1668538.html" target="_blank" rel="noopener">Cựu Phó thủ tướng Đức gốc Việt tham gia Tổ tư vấn Trung tâm tài chính</a></h3>
+          <p>Tổ tư vấn VIFC tại TP.HCM thành lập và ra mắt với sự tham gia của cựu Phó thủ tướng Đức gốc Việt, ông Philip Rösler; cựu Đại sứ Mỹ tại Việt Nam Marc Knapper.</p>
+          <time>12/07/2026 · 10:12</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/mrndcqjwq/2026_07_12/nghia_trang_05544201_2.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span></div>
+          <h3><a href="https://znews.vn/dat-nghia-trang-hoa-hang-hot-giua-luc-thi-truong-bat-dong-san-tram-lang-post1668543.html" target="_blank" rel="noopener">Đất nghĩa trang hóa &#x27;hàng hot&#x27; giữa lúc thị trường bất động sản trầm lắng</a></h3>
+          <p>Phân khúc đất nghĩa trang đang trở thành &quot;mảnh đất màu mỡ&quot; thu hút các nhà đầu tư, đặc biệt là những người có nguồn vốn hạn chế.</p>
+          <time>12/07/2026 · 10:09</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/spluwao/2024_05_09/QD_thuthiem_znews.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span></div>
+          <h3><a href="https://znews.vn/lai-suat-gia-nha-neo-cao-nguoi-mua-ngai-xuong-tien-post1664705.html" target="_blank" rel="noopener">Lãi suất, giá nhà neo cao, người mua &#x27;ngại&#x27; xuống tiền</a></h3>
+          <p>Lãi suất cùng giá nhà ở duy trì ở mức cao cùng các thông tin quy hoạch tại các thành phố lớn khiến nhiều người mua nhà chưa đưa ra quyết định xuống tiền.</p>
+          <time>12/07/2026 · 10:06</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/rohuoct/2026_07_07/dsc01618_750x468.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/den-luot-tong-giam-doc-pnj-giai-cuu-co-phieu-post1668459.html" target="_blank" rel="noopener">Đến lượt Tổng giám đốc PNJ &#x27;giải cứu&#x27; cổ phiếu</a></h3>
+          <p>Ngay sau chuỗi biến động mạnh của cổ phiếu PNJ, Tổng giám đốc Phan Quốc Công đã đăng ký mua 1 triệu cổ phiếu, tương đương khoảng 0,2% vốn điều lệ doanh nghiệp.</p>
+          <time>11/07/2026 · 22:00</time>
+        </div>
+      </article></div></div><div class="slide-page"><div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/mrndcqjwq/2025_12_14/may_bay_vietnam_airlines_1804_2.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/tin-vui-voi-vietnam-airlines-post1668444.html" target="_blank" rel="noopener">Tin vui với Vietnam Airlines</a></h3>
+          <p>Từ ngày 14/7, cổ phiếu HVN của Vietnam Airlines được HoSE đưa ra khỏi diện kiểm soát và hạn chế giao dịch, chỉ còn thuộc diện cảnh báo do vẫn còn lỗ lũy kế.</p>
+          <time>11/07/2026 · 20:45</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/rohuoct/2026_07_11/jos_1.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/canh-bi-dat-cua-cong-ty-dau-tien-bao-lo-quy-ii-post1668350.html" target="_blank" rel="noopener">Cảnh &#x27;bi đát&#x27; của công ty đầu tiên báo lỗ quý II</a></h3>
+          <p>Từng là doanh nghiệp thủy sản đạt doanh thu xấp xỉ 1.000 tỷ đồng mỗi năm, JOS nay gần như không còn hoạt động kinh doanh cốt lõi khi doanh thu bán hàng về 0.</p>
+          <time>11/07/2026 · 19:13</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/wyhktpu/2026_07_11/Anh_1_1.jpeg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span></div>
+          <h3><a href="https://znews.vn/dieu-gi-cho-don-game-thu-o-gamers-lead-the-play-cua-vnggames-post1668417.html" target="_blank" rel="noopener">Điều gì chờ đón game thủ ở &#x27;Gamers Lead The Play&#x27; của VNGGames?</a></h3>
+          <p>Ngày hội Gamers Lead The Play của VNGGames hứa hẹn khuấy động cộng đồng game thủ với hơn 20 tựa game, showmatch quốc tế và sân khấu âm nhạc sôi động.</p>
+          <time>11/07/2026 · 19:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/rohuoct/2026_07_11/chung_khoan_vuot_dinh_nha_dau_tu_van_nen_than_trong_06284579.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/vi-sao-nha-dau-tu-chung-khoan-dang-luoi-giao-dich-post1668386.html" target="_blank" rel="noopener">Vì sao nhà đầu tư chứng khoán đang &#x27;lười&#x27; giao dịch?</a></h3>
+          <p>Sau những phiên biến động, dù VN-Index vẫn duy trì quanh vùng điểm cao nhưng giá trị khớp lệnh liên tục suy giảm, chứng tỏ nhà đầu tư ít giao dịch.</p>
+          <time>11/07/2026 · 18:32</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/rohuoct/2026_07_11/bbavif.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span></div>
+          <h3><a href="https://znews.vn/lai-suat-thoa-thuan-vuot-9-nam-cuoc-dua-nong-den-bao-gio-post1668387.html" target="_blank" rel="noopener">Lãi suất thỏa thuận vượt 9%/năm: Cuộc đua &#x27;nóng&#x27; đến bao giờ?</a></h3>
+          <p>Lãi suất huy động theo hình thức thỏa thuận tại nhiều ngân hàng đã vượt ngưỡng 9%/năm cho kỳ hạn 6-12 tháng, cao hơn đáng kể so với biểu niêm yết công khai.</p>
+          <time>11/07/2026 · 18:04</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb thumb-empty"><span>BrandsVietnam</span></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">BrandsVietnam</span></div>
+          <h3><a href="https://www.brandsvietnam.com/congdong/topic/first-time-manager-8-lan-dau-tim-dong-doi-nghe-thuat-chon-mat-gui-vang" target="_blank" rel="noopener">First-time Manager #8: Lần đầu tìm đồng đội – Nghệ thuật “chọn mặt gửi vàng”</a></h3>
+          <p></p>
+          <time></time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb thumb-empty"><span>BrandsVietnam</span></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">BrandsVietnam</span></div>
+          <h3><a href="https://www.brandsvietnam.com/congdong/topic/apple-issey-miyake-va-chiec-ao-co-lo-cua-steve-jobs" target="_blank" rel="noopener">Apple, Issey Miyake và câu chuyện chiếc áo cổ lọ đen huyền thoại của Steve Jobs</a></h3>
+          <p></p>
+          <time></time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb thumb-empty"><span>BrandsVietnam</span></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">BrandsVietnam</span></div>
+          <h3><a href="https://www.brandsvietnam.com/congdong/topic/deep-dive-39-thuat-toan-facebook-va-cach-thuong-hieu-xay-dung-fanpage" target="_blank" rel="noopener">Deep Dive #39: Thuật toán của Facebook đã thay đổi nhưng sao cách thương hiệu xây dựng fanpage vẫn chưa?</a></h3>
+          <p></p>
+          <time></time>
+        </div>
+      </article></div></div></div>
+  </section>
+  <section class="tab-panel" id="tab-xa-hoi">
+    <header class="sec-head"><h2>Xã hội &amp; Đời sống đô thị</h2><span class="rule"></span></header>
+    <p class="sec-brief">Tâm điểm: “nạn nhân vụ” và “nhân vụ lật” — 2 báo cùng khai thác. Đáng chú ý: Đưa thi thể 15 nạn nhân vụ lật ca nô về TP.HCM, khẩn trương điều tra… (Znews). Mới nhất: Mưa gió quật ngã nhiều cây xanh, đè trúng ô tô ở TPHCM (VietNamNet, 12/07/2026 · 14:03).</p>
+    <div class="slide-nav"><button class="slide-btn prev" aria-label="Tin mới hơn">‹</button><span class="slide-hint">Kéo ngang hoặc bấm mũi tên để xem 8 tin cũ hơn</span><button class="slide-btn next" aria-label="Tin cũ hơn">›</button></div><div class="slide-track"><div class="slide-page"><div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://static-images.vnncdn.net/vps_images_publish/000001/000003/2026/7/12/mua-gio-quat-nga-nhieu-cay-xanh-de-trung-o-to-o-tphcm-1897.jpg?width=0&amp;amp;s=OUHKKyYlBixVL65P-oKE7A')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VietNamNet</span></div>
+          <h3><a href="https://vietnamnet.vn/mua-gio-lon-quat-nga-nhieu-cay-xanh-de-trung-o-to-o-tphcm-2534977.html" target="_blank" rel="noopener">Mưa gió quật ngã nhiều cây xanh, đè trúng ô tô ở TPHCM</a></h3>
+          <p>Mưa lớn kèm gió giật mạnh khiến nhiều cây xanh trên địa bàn phường Bà Rịa, TPHCM (khu vực TP Bà Rịa, tỉnh Bà Rịa - Vũng Tàu cũ) bật gốc, ngã đổ. Trong đó, một cây đổ trúng ô tô 7 chỗ đang lưu thông,…</p>
+          <time>12/07/2026 · 14:03</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/12/2aoboqjqmitan9aq59obdnrrdpukep-3841-8363-1783837419.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=oF5iJFh8NiqzVQCCvamfmg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/gen-z-lam-truong-thon-to-truong-dan-pho-5096219.html" target="_blank" rel="noopener">Gen Z làm trưởng thôn, tổ trưởng dân phố</a></h3>
+          <p>Ở tuổi ngoài 20, nhiều Gen Z được người dân tín nhiệm làm trưởng thôn, tổ trưởng tổ dân phố, mang sức trẻ và công nghệ vào công việc ở cơ sở.</p>
+          <time>12/07/2026 · 13:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://static-images.vnncdn.net/vps_images_publish/000001/000003/2026/7/12/bat-giam-doc-nup-bong-cong-ty-o-to-cu-cho-vay-lai-nang-1817.jpg?width=0&amp;amp;s=Yd_o0pzNkx7oXjaIRDh_dQ')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VietNamNet</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://vietnamnet.vn/bat-giam-doc-nup-bong-cong-ty-o-to-cu-cho-vay-lai-nang-2534960.html" target="_blank" rel="noopener">Bắt giám đốc núp bóng công ty ô tô cũ cho vay lãi nặng</a></h3>
+          <p>Công an tỉnh Đắk Lắk khởi tố, bắt tạm giam giám đốc một công ty mua bán ô tô cũ cùng hai đồng phạm để điều tra hành vi cho vay lãi nặng trong giao dịch dân sự.</p>
+          <time>12/07/2026 · 12:56</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://static-images.vnncdn.net/vps_images_publish/000001/000003/2026/7/12/an-giang-hop-khan-khac-phuc-hau-qua-vu-lat-ca-no-o-dac-khu-phu-quoc-1800.png?width=0&amp;amp;s=4gut2tDAU-p3Q3hPxJrp0A')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VietNamNet</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://vietnamnet.vn/an-giang-hop-khan-khac-phuc-hau-qua-vu-lat-ca-no-o-dac-khu-phu-quoc-2534958.html" target="_blank" rel="noopener">An Giang họp khẩn khắc phục hậu quả vụ lật ca nô ở đặc khu Phú Quốc</a></h3>
+          <p>Sáng nay (12/7), Chủ tịch UBND tỉnh An Giang Hồ Văn Mừng chủ trì cuộc họp khẩn với các sở, ngành và đơn vị liên quan để chỉ đạo khắc phục hậu quả vụ lật ca nô xảy ra tại đặc khu Phú Quốc.</p>
+          <time>12/07/2026 · 12:35</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://static-images.vnncdn.net/vps_images_publish/000001/000003/2026/7/12/sau-vu-lat-ca-no-dac-khu-phu-quoc-de-nghi-khong-lan-truyen-tin-chua-kiem-chung-1744.png?width=0&amp;amp;s=NqHnLaWnXJQmDg963WqJlQ')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VietNamNet</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://vietnamnet.vn/sau-vu-lat-ca-no-dac-khu-phu-quoc-de-nghi-khong-lan-truyen-tin-chua-kiem-chung-2533032.html" target="_blank" rel="noopener">Sau vụ lật ca nô, đặc khu Phú Quốc đề nghị không lan truyền tin chưa kiểm chứng</a></h3>
+          <p>Sau vụ lật ca nô khiến 15 du khách tử vong, lãnh đạo đặc khu Phú Quốc kêu gọi người dân và cộng đồng mạng không chia sẻ hình ảnh thương tâm, không phát tán thông tin chưa kiểm chứng, đồng thời chung…</p>
+          <time>12/07/2026 · 12:11</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/oplukaa/2026_07_10/z8033814502632_a221838e8bfb746e3941d057f889df6d_251.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/dua-thi-the-15-nan-nhan-vu-lat-ca-no-ve-tphcm-khan-truong-dieu-tra-nguyen-nhan-post1668008.html" target="_blank" rel="noopener">Đưa thi thể 15 nạn nhân vụ lật ca nô về TP.HCM, khẩn trương điều tra nguyên nhân</a></h3>
+          <p>Sức khỏe các du khách bị thương trong vụ lật ca nô trên vùng biển An Thới (đặc khu Phú Quốc) cơ bản ổn định. Sáng 12/7, chính quyền địa phương đưa thi thể 15 nạn nhân vào đất liền.</p>
+          <time>12/07/2026 · 11:56</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://static-images.vnncdn.net/vps_images_publish/000001/000003/2026/7/12/tu-cum-diep-bao-thuc-day-tong-thong-duong-van-minh-dau-hang-den-tran-tuyen-dua-dat-nuoc-vuon-minh-1228.png?width=0&amp;amp;s=LZF446sVaFMwm7GRJ1VqcA')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VietNamNet</span></div>
+          <h3><a href="https://vietnamnet.vn/tu-cum-diep-bao-thuc-day-tong-thong-duong-van-minh-dau-hang-2534743.html" target="_blank" rel="noopener">Từ cụm điệp báo thúc đẩy Tổng thống Dương Văn Minh đầu hàng đến trận tuyến đưa đất nước vươn mình</a></h3>
+          <p>Thắng lợi 30/4/1975 là một cột mốc vĩ đại, nơi lực lượng an ninh đã ra một nước cờ chính trị: thao túng chính trường, dồn Tổng thống Việt Nam Cộng hòa vào thế buộc phải buông súng để Sài Gòn không đổ…</p>
+          <time>12/07/2026 · 11:26</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://static-images.vnncdn.net/vps_images_publish/000001/000003/2026/7/12/loi-dung-chu-nha-ve-que-nguoi-dan-ong-pha-ket-sat-trom-vang-1399.jpg?width=0&amp;amp;s=79ZrGe8xl_48HmHXZyMMNQ')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VietNamNet</span></div>
+          <h3><a href="https://vietnamnet.vn/loi-dung-chu-nha-ve-que-nguoi-dan-ong-pha-ket-sat-trom-vang-2534950.html" target="_blank" rel="noopener">Lợi dụng chủ nhà về quê, người đàn ông phá két sắt trộm vàng</a></h3>
+          <p>Do quen biết và nắm được lịch trình của chủ nhà, Hoàng Văn Hiệp đột nhập vào nhà, phá két sắt lấy trộm một cây vàng rồi bỏ trốn.</p>
+          <time>12/07/2026 · 10:37</time>
+        </div>
+      </article></div></div><div class="slide-page"><div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/oplukaa/2026_07_10/an_giang_hoan_tat_viec_cuu_ho_vu_tai_nan_lat_ca_no_du_lich_o_phu_quoc_8881537_1.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/dien-chia-buon-ve-vu-tau-du-lich-gap-nan-tai-an-giang-post1668009.html" target="_blank" rel="noopener">Điện chia buồn về vụ tàu du lịch gặp nạn tại An Giang</a></h3>
+          <p>Lãnh đạo cấp cao Việt Nam khẳng định các cơ quan chức năng của Việt Nam đã và đang khẩn trương triển khai biện pháp cứu hộ, cứu nạn, điều trị cho người bị thương, hỗ trợ nạn nhân.</p>
+          <time>12/07/2026 · 10:34</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/12/6e55a19ea9cfdbd3f6fc18f4-jpeg-1783826328.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=8kigVNMw2ZDAglMpjxsUGA')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/di-vat-liet-si-o-cong-vien-le-thi-rieng-sau-mot-tuan-tim-kiem-5096282.html" target="_blank" rel="noopener">Di vật liệt sĩ ở công viên Lê Thị Riêng sau một tuần tìm kiếm</a></h3>
+          <p>Nhẫn vàng, bút máy, dép cao su... cùng nhiều hài cốt được tìm thấy sau một tuần khai quật, tìm kiếm ở công viên Lê Thị Riêng.</p>
+          <time>12/07/2026 · 10:30</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/oplukaa/2026_07_10/ca1_20260712063138jpg.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span></div>
+          <h3><a href="https://znews.vn/ca-chet-hang-loat-tren-song-hieu-va-song-thach-han-post1668010.html" target="_blank" rel="noopener">Cá chết hàng loạt trên sông Hiếu và sông Thạch Hãn</a></h3>
+          <p>Hiện tượng cá chết xuất hiện tại một số khu vực trên lưu vực sông Hiếu và sông Thạch Hãn. Việc cá nuôi và cá tự nhiên cùng chết trong thời gian ngắn được cho là bất thường.</p>
+          <time>12/07/2026 · 10:19</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://static-images.vnncdn.net/vps_images_publish/000001/000003/2026/7/12/dua-thi-the-15-nan-nhan-vu-lat-ca-no-tu-phu-quoc-vao-dat-lien-803.png?width=0&amp;amp;s=NRsKnyRx5Zx_CJHUz_k15Q')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VietNamNet</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://vietnamnet.vn/dua-thi-the-15-nan-nhan-vu-lat-ca-no-tu-phu-quoc-vao-dat-lien-2534938.html" target="_blank" rel="noopener">Đưa thi thể 15 nạn nhân vụ lật ca nô từ Phú Quốc vào đất liền</a></h3>
+          <p>Thi thể 15 nạn nhân vụ lật ca nô ở đặc khu Phú Quốc (tỉnh An Giang) đã được xác định danh tính, hoàn tất thủ tục và đưa vào đất liền để bảo quản.</p>
+          <time>12/07/2026 · 09:32</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://static-images.vnncdn.net/vps_images_publish/000001/000003/2026/7/11/2026-mien-bac-tiep-dien-mua-giong-ha-noi-nang-gian-doan-2264.jpg?width=0&amp;amp;s=9aYPsuCoIQdvi8dAvARAww')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VietNamNet</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://vietnamnet.vn/du-bao-thoi-tiet-12-7-2026-mien-bac-tiep-dien-mua-giong-ha-noi-nang-gian-doan-2532592.html" target="_blank" rel="noopener">Dự báo thời tiết 12/7/2026: Miền Bắc tiếp diễn mưa giông, Hà Nội nắng gián đoạn</a></h3>
+          <p>Dự báo thời tiết ngày 12/7/2026, miền Bắc tiếp tục có mưa giông, nguy cơ lũ quét và sạt lở đất ở vùng núi. Bắc Trung Bộ mưa to cục bộ; Trung và Nam Trung Bộ có nơi nắng nóng. Cao nguyên Trung Bộ và…</p>
+          <time>12/07/2026 · 09:08</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cafebiz.cafebizcdn.vn/zoom/700_438/162123310254002176/2025/11/10/group-1000005339-1762745010646502764913-0-0-190-304-crop-1762747394867252825704.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">CafeBiz</span></div>
+          <h3><a href="https://cafebiz.vn/tran-quoc-thien-176251110110356492.chn" target="_blank" rel="noopener">Trần Quốc Thiện</a></h3>
+          <p>Tiến sĩ, Founder Cộng đồng học thuật PhD.Hub</p>
+          <time></time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cafebiz.cafebizcdn.vn/zoom/700_438/162123310254002176/2025/11/10/group-1000005337-1762745337342782111130-0-0-190-304-crop-1762747329980722756362.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">CafeBiz</span></div>
+          <h3><a href="https://cafebiz.vn/phan-bich-thien-176251110110242368.chn" target="_blank" rel="noopener">Phan Bích Thiện</a></h3>
+          <p>Uỷ viên Uỷ ban Trung ương Mặt trận Tổ quốc Việt Nam</p>
+          <time></time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cafebiz.cafebizcdn.vn/zoom/700_438/162123310254002176/2025/11/10/group-1000005355-17627453372151981219550-0-0-190-304-crop-17627472655761390744499.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">CafeBiz</span></div>
+          <h3><a href="https://cafebiz.vn/le-hoai-viet-176251110110139995.chn" target="_blank" rel="noopener">Lê Hoài Việt</a></h3>
+          <p>Thành viên HĐ Tư vấn và Hỗ trợ Khởi nghiệp Quốc gia phía Nam</p>
+          <time></time>
+        </div>
+      </article></div></div></div>
+  </section>
+  <section class="tab-panel" id="tab-tam-ly">
+    <header class="sec-head"><h2>Tâm lý &amp; Phong cách sống</h2><span class="rule"></span></header>
+    <p class="sec-brief">Tâm điểm: “cuộc chiến” — 2 báo cùng khai thác. Đáng chú ý: Quán chè hơn 60 năm ở TP.HCM: Hương hoa nhài níu chân nhiều thế hệ khách (Thanh Niên). Mới nhất: 7 loại quả tốt cho tim mạch nên ăn mỗi tuần (VnExpress, 12/07/2026 · 13:00).</p>
+    <div class="slide-nav"><button class="slide-btn prev" aria-label="Tin mới hơn">‹</button><span class="slide-hint">Kéo ngang hoặc bấm mũi tên để xem 8 tin cũ hơn</span><button class="slide-btn next" aria-label="Tin cũ hơn">›</button></div><div class="slide-track"><div class="slide-page"><div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-suckhoe.vnecdn.net/2026/07/11/tao-2-1783783141.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=rV-nGfNnEy6JX9l6_ShVDQ')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/7-loai-qua-tot-cho-tim-mach-nen-an-moi-tuan-5096373.html" target="_blank" rel="noopener">7 loại quả tốt cho tim mạch nên ăn mỗi tuần</a></h3>
+          <p>Táo, chuối, cam cung cấp nhiều chất xơ, kali cùng các chất chống oxy hóa, hỗ trợ giảm cholesterol và kiểm soát huyết áp.</p>
+          <time>12/07/2026 · 13:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-suckhoe.vnecdn.net/2026/07/10/dsc01201-jpg-webp-1783685679-9496-1783685700.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=bjJfTmgPsN5RkboKAX8oUg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/nhung-viec-nen-lam-trong-5-phut-de-nao-khoe-tang-tri-nho-5095574.html" target="_blank" rel="noopener">Những việc nên làm trong 5 phút để não khỏe, tăng trí nhớ</a></h3>
+          <p>Đi bộ, giãn cơ, thiền, uống nước hay giải câu đố có thể giúp não hoạt động hiệu quả hơn, tăng khả năng tập trung.</p>
+          <time>12/07/2026 · 13:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-suckhoe.vnecdn.net/2026/07/11/448800516-n-1783761824-6296-1783761976.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=9D-aLPZKv-TOcHayXTIRFQ')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/dieu-gi-xay-ra-voi-duong-huyet-khi-thuong-xuyen-an-ca-hoi-5096170.html" target="_blank" rel="noopener">Điều gì xảy ra với đường huyết khi thường xuyên ăn cá hồi?</a></h3>
+          <p>Cá hồi giàu protein và omega-3, hỗ trợ quá trình chuyển hóa glucose lành mạnh, giúp duy trì lượng đường trong máu ổn định.</p>
+          <time>12/07/2026 · 13:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://images2.thanhnien.vn/zoom/600_315/528068263637045248/2026/7/3/edit_photo_vyhblsjcys-1783832227.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Thanh Niên</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://thanhnien.vn/quan-che-hon-60-nam-o-tphcm-huong-hoa-nhai-niu-chan-nhieu-the-he-khach-185260704011733056.htm" target="_blank" rel="noopener">Quán chè hơn 60 năm ở TP.HCM: Hương hoa nhài níu chân nhiều thế hệ khách</a></h3>
+          <p>Là một trong những quán chè lâu đời ở TP.HCM, Hiển Khánh vẫn giữ hương vị chè Bắc suốt hơn 60 năm và trở thành điểm hẹn quen thuộc của nhiều thế hệ thực khách.</p>
+          <time>12/07/2026 · 12:12</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://images2.thanhnien.vn/zoom/600_315/528068263637045248/2026/7/11/edit_photo_tivllewesd-1783832821.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Thanh Niên</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://thanhnien.vn/hanh-trinh-vuot-kho-cua-nam-sinh-tphcm-ba-la-nguon-dong-luc-de-con-buoc-tiep-185260711090205618.htm" target="_blank" rel="noopener">Hành trình vượt khó của nam sinh TP.HCM: &#x27;Ba là nguồn động lực để con bước tiếp&#x27;</a></h3>
+          <p>Mất cha khi còn quá nhỏ, một nam sinh TP.HCM đã nỗ lực vượt khó, giành học bổng để tiếp tục con đường học vấn.</p>
+          <time>12/07/2026 · 12:03</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-suckhoe.vnecdn.net/2026/07/11/mo-lon-vnexpress-1783763989-9430-1783764093.webp?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=JVfjQRrOZVL5SC0s-JZAzw')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/4-sai-lam-khi-dung-mo-lon-5094700.html" target="_blank" rel="noopener">4 sai lầm khi dùng mỡ lợn</a></h3>
+          <p>Rán mỡ quá kỹ, đựng mỡ nóng vào lọ nhựa, để mỡ quá lâu ở nhiệt độ phòng, rán một lần ăn cả tháng là những sai lầm thường gặp khi dùng mỡ lợn gây hại.</p>
+          <time>12/07/2026 · 12:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-suckhoe.vnecdn.net/2026/07/11/mat-1783780887-7135-1783780905.png?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=Wn4Zot2rQrQs36ItnorKKg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/not-noi-o-long-trang-mat-co-nguy-hiem-5096363.html" target="_blank" rel="noopener">Nốt nổi ở lòng trắng mắt có nguy hiểm?</a></h3>
+          <p>Nốt nổi ở lòng trắng mắt thường là tổn thương lành tính như mộng mỡ hoặc mộng thịt, song một số trường hợp có thể liên quan đến khối u hoặc bệnh lý cần điều trị sớm.</p>
+          <time>12/07/2026 · 12:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-suckhoe.vnecdn.net/2026/07/11/bddc96268bd724897dc6-178376155-9888-3269-1783763038.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=P70lEkFTL-9QAutBMlNWLw')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/nhung-sai-lam-can-tro-tre-phat-trien-chieu-cao-5096293.html" target="_blank" rel="noopener">Những sai lầm cản trở trẻ phát triển chiều cao</a></h3>
+          <p>Ăn quá mặn, chỉ bổ sung canxi, ít vận động và không theo dõi tốc độ tăng trưởng có thể khiến trẻ khó đạt chiều cao tối ưu.</p>
+          <time>12/07/2026 · 12:00</time>
+        </div>
+      </article></div></div><div class="slide-page"><div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-suckhoe.vnecdn.net/2026/07/11/523820403-n-1783762420-2555-1783762550.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=GtTdF4kdoPoR9X6YGOJocg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/4-loai-ca-giau-vitamin-d-ho-tro-ngu-ngon-5096159.html" target="_blank" rel="noopener">4 loại cá giàu vitamin D hỗ trợ ngủ ngon</a></h3>
+          <p>Cá béo như cá hồi, cá mòi, cá thu và các loại khác cung cấp vitamin D tốt, giúp tăng cường sức khỏe não bộ, cải thiện chất lượng giấc ngủ.</p>
+          <time>12/07/2026 · 12:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://images2.thanhnien.vn/zoom/600_315/528068263637045248/2026/7/6/edit_photo_xjdnmdiiqp-1783832368.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Thanh Niên</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://thanhnien.vn/thong-bao-quan-nghi-ban-vi-trung-so-gay-xon-xao-ban-co-nghi-viec-neu-doi-doi-185260706170336478.htm" target="_blank" rel="noopener">Thông báo &#x27;quán nghỉ bán vì trúng số&#x27; gây xôn xao: Bạn có nghỉ việc nếu đổi đời?</a></h3>
+          <p>Mới đây, câu chuyện chủ một quán ăn ở TP.HCM thông báo đóng cửa nghỉ bán vì lý do vừa trúng số khiến nhiều người xôn xao. Chưa rõ thực hư thông tin trên, tuy nhiên từ đây dân mạng đặt ra câu hỏi:…</p>
+          <time>12/07/2026 · 11:21</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-suckhoe.vnecdn.net/2026/07/11/6c1b2f1ddc5e4eb48372f87d58bb60-8725-5189-1783761576.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=ExujiJ-pb8k_3RPpwalTfA')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/vi-sao-trao-nguoc-da-day-thuc-quan-5096300.html" target="_blank" rel="noopener">Vì sao trào ngược dạ dày thực quản?</a></h3>
+          <p>Bệnh trào ngược dạ dày thực quản xảy ra ở mọi lứa tuổi, hiểu được các yếu tố nguy cơ có thể góp phần ngăn ngừa bệnh từ sớm.</p>
+          <time>12/07/2026 · 10:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://icdn.dantri.com.vn/2026/07/12/ve-lam-dau-o-hai-phong-cropped-1783794156171.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Dân Trí</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://dantri.com.vn/doi-song/ve-lam-dau-o-hai-phong-co-gai-xuc-dong-duoc-bo-chong-cham-tung-mam-com-cu-20260712012344281.htm" target="_blank" rel="noopener">Về làm dâu ở Hải Phòng, cô gái xúc động được bố chồng chăm từng mâm cơm cữ</a></h3>
+          <p>(Dân trí) - Tới giờ ăn, điện thoại của chị Phương lại hiện lên dòng tin nhắn quen thuộc từ bố chồng nhắc xuống ăn cơm. Câu nói ngắn gọn nhưng lần nào cũng khiến chị ấm lòng vì biết luôn được gia đình…</p>
+          <time>12/07/2026 · 09:39</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-suckhoe.vnecdn.net/2026/07/11/a-nh-ma-n-hi-nh-lu-c-178378241-9823-7854-1783782704.png?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=g79nf7Hn-dz1jiqfv7FS2w')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/cuoc-chien-loc-gene-de-tim-con-khoe-manh-5093839.html" target="_blank" rel="noopener">Cuộc chiến &#x27;lọc&#x27; gene để tìm con khỏe mạnh</a></h3>
+          <p>Cứ mỗi lần gặp hàng xóm, mọi người đều hỏi &quot;em bé đâu&quot; khiến chị Hà rơi vào trầm cảm, đành bán ngôi nhà ở thành phố về quê sống.</p>
+          <time>12/07/2026 · 09:21</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb thumb-empty"><span>Tatler</span></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Tatler</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://news.google.com/rss/articles/CBMifkFVX3lxTE5vNTU3ZG9OOHZhZW1VNzFWS3VNUzhnZWVsODJYMkhRbVlzUFpXcTlvcVdIWXRmaGhPUlZCMzdPWWN3MkN0NHZ3SXpYZnotNjVVSWVCSkE0NklBSFpUXzd6UkF3QU1DRDlhZGp4enNta2h1S1F2ZGtYNml0QllWZw?oc=5" target="_blank" rel="noopener">Bản quyền thể thao: Cuộc chiến phía sau</a></h3>
+          <p>Bản quyền thể thao: Cuộc chiến phía sau Tatler Asia</p>
+          <time>10/07/2026 · 22:23</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb thumb-empty"><span>Tatler</span></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Tatler</span></div>
+          <h3><a href="https://news.google.com/rss/articles/CBMiXEFVX3lxTE56VzE4bmE1QzBVZHlwSi0zWHhmcTVqUVFfeTJlc3UzTDQzeGRKRkpxRmZfVEtPREJ6blN2V214UFhlMXo2RzFmYzhHZlFpWEJ2dHdHeE1zalR5cDFP?oc=5" target="_blank" rel="noopener">Thịnh Joey</a></h3>
+          <p>Thịnh Joey Tatler Asia</p>
+          <time>10/07/2026 · 22:25</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb thumb-empty"><span>Tatler</span></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Tatler</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxNaEwwc2l1Z2p4SEk4NmhjcHhmamZFNWdGNDJzbllnenNvc1Q2Y0RibzdKX0lGTXgzb2Z2MmVTSVpodGRxOXNOSDFYU0tJNHdZSTNXcThWOTEwNzlCQmJHbS1FT0x3Slk4OFlWaC1YZGo2TXoxZTlsUWRnX2N3NWZWeg?oc=5" target="_blank" rel="noopener">Ngành công nghiệp thể thao chính là một nền kinh tế trải nghiệm.</a></h3>
+          <p>Ngành công nghiệp thể thao chính là một nền kinh tế trải nghiệm. Tatler Asia</p>
+          <time>11/07/2026 · 06:35</time>
+        </div>
+      </article></div></div></div>
+  </section>
+  <section class="tab-panel" id="tab-su-nghiep">
+    <header class="sec-head"><h2>Sự nghiệp &amp; Xu hướng</h2><span class="rule"></span></header>
+    <p class="sec-brief">Đáng chú ý: 32 ngành của Bách khoa TP HCM được cấp học bổng 3,7-5,5 triệu đồng/tháng (VnExpress). Mới nhất: 10 đại học ở Hà Nội công bố ngành được cấp học bổng 3,7-5,5 triệu… (VnExpress, 12/07/2026 · 11:05).</p>
+    <div class="slide-nav"><button class="slide-btn prev" aria-label="Tin mới hơn">‹</button><span class="slide-hint">Kéo ngang hoặc bấm mũi tên để xem 8 tin cũ hơn</span><button class="slide-btn next" aria-label="Tin cũ hơn">›</button></div><div class="slide-track"><div class="slide-page"><div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/11/hn-thi-thpt-1783769807-9931-1783771187.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=uGE9lUsqPlheL-EXZr7eJA')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/10-dai-hoc-o-ha-noi-cong-bo-nganh-duoc-cap-hoc-bong-3-7-5-5-trieu-dong-thang-5095772.html" target="_blank" rel="noopener">10 đại học ở Hà Nội công bố ngành được cấp học bổng 3,7-5,5 triệu đồng/tháng</a></h3>
+          <p>10 trường đại học đã công bố danh mục ngành, chương trình đào tạo khoa học cơ bản, kỹ thuật then chốt, công nghệ chiến lược được cấp học bổng theo Nghị định 179 của Chính phủ.</p>
+          <time>12/07/2026 · 11:05</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/12/76a1fb8ed22c4d-bf3bc2fca0-1783-3523-3037-1783822533.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=uD83q7fb7GMtmcPMCKv0yg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/diem-san-he-dan-su-hoc-vien-ky-thuat-quan-su-cao-nhat-22-75-5096424.html" target="_blank" rel="noopener">Điểm sàn hệ dân sự Học viện Kỹ thuật quân sự cao nhất 22,75</a></h3>
+          <p>Điểm sàn hệ dân sự của Học viện Kỹ thuật quân sự (MTA) là 19 và 22,75, tùy chương trình đào tạo.</p>
+          <time>12/07/2026 · 09:15</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/08/image003-1783503041-9201-1783503123.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=LwSi_BGppLZR4ub5pBBT3w')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/truong-dh-ngoai-thuong-tuyen-chuong-trinh-thuong-mai-so-va-doi-moi-kinh-doanh-5095115.html" target="_blank" rel="noopener">Trường ĐH Ngoại thương tuyển chương trình thương mại số và đổi mới kinh doanh</a></h3>
+          <p>Trường Đại học Ngoại thương tuyển sinh khóa đầu chương trình Thương mại số thông minh &amp; Đổi mới kinh doanh (SBI), nhằm đào tạo nguồn nhân lực đáp ứng yêu cầu chuyển đổi số và hội nhập quốc tế.</p>
+          <time>12/07/2026 · 08:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/11/thitotnghiepthpt-1783771243-7582-1783771266.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=Xw98A_M9z8rvb26Ydr8GRw')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/diem-san-210-dai-hoc-nam-2026-5096289.html" target="_blank" rel="noopener">Điểm sàn 210 đại học năm 2026</a></h3>
+          <p>Hầu hết đại học đã công bố điểm sàn xét tuyển năm nay với mặt bằng chung cao hơn năm ngoái, mức thấp nhất là 15 - mức tối thiểu Bộ Giáo dục và Đào tạo yêu cầu.</p>
+          <time>12/07/2026 · 06:05</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/11/stpierreandmiquelonphotobymarn-1878-9753-1783763155.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=X7d7QBrMh5gUkO-T9CIiTg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/nuoc-nao-don-khach-du-lich-nhieu-nhat-the-gioi-5096318.html" target="_blank" rel="noopener">Nước nào đón khách du lịch nhiều nhất thế giới?</a></h3>
+          <p>Chừng 102 triệu du khách tới thăm nước này trong năm 2025, đông số 1 thế giới. Đây là nước nào?</p>
+          <time>11/07/2026 · 21:02</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/11/td5-1783739612-3051-1783742619.webp?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=RK5794aJnR8YEHOmTt9wmw')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/32-nganh-cua-bach-khoa-tp-hcm-duoc-cap-hoc-bong-3-7-5-5-trieu-dong-thang-5096217.html" target="_blank" rel="noopener">32 ngành của Bách khoa TP HCM được cấp học bổng 3,7-5,5 triệu đồng/tháng</a></h3>
+          <p>Sinh viên theo học 32 ngành của trường Đại học Bách khoa TP HCM được Chính phủ cấp học bổng 3,7-5,5 triệu đồng mỗi tháng.</p>
+          <time>11/07/2026 · 20:03</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/11/thpt-tru-ng-vu-o-ng-1783748618-1188-1783748804.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=T3TBKVWqI21pRjg67QtARg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/ha-noi-dung-mo-moi-truong-tieu-hoc-thcs-cong-lap-5096241.html" target="_blank" rel="noopener">Hà Nội dừng mở mới trường tiểu học, THCS công lập</a></h3>
+          <p>Hà Nội dừng mở mới trường học từ mầm non tới THCS để sáp nhập, sắp xếp, giảm 50% đầu mối quản lý hành chính, song giữ nguyên 124 trường THPT công lập.</p>
+          <time>11/07/2026 · 14:26</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/11/5b3409b78c400d1e54511783750722-6410-5440-1783751431.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=rV2KNIJ4WC3Dzq9VBNp0PA')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/viet-nam-vao-top-7-olympic-vat-ly-quoc-te-5096258.html" target="_blank" rel="noopener">Việt Nam vào top 7 Olympic Vật lý quốc tế</a></h3>
+          <p>Với 4 huy chương vàng, trong đó hai học sinh đạt tuyệt đối bài thi lý thuyết, đoàn Việt Nam trong top 7 trên 85 đội thi Olympic Vật lý quốc tế 2026 (IPhO).</p>
+          <time>11/07/2026 · 13:27</time>
+        </div>
+      </article></div></div><div class="slide-page"><div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/11/dsc07272-jpg-1783746384-7539-1783747504.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=11KcdLYvq79avhzGHwZZuQ')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/diem-san-dai-hoc-su-pham-tp-hcm-cao-nhat-24-5096240.html" target="_blank" rel="noopener">Điểm sàn Đại học Sư phạm TP HCM cao nhất 24</a></h3>
+          <p>Sáu ngành ở trường Đại học Sư phạm TP HCM lấy điểm sàn 24 - mức cao nhất với nhóm ngành đào tạo giáo viên cả nước.</p>
+          <time>11/07/2026 · 12:37</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/10/hvannd-1783650626-5259-1783650722.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=QmI5ua3vvJcUM4tAYuK1zA')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/diem-san-8-truong-cong-an-2026-chi-tiet-nhat-5095749.html" target="_blank" rel="noopener">Công bố điểm sàn 8 trường công an</a></h3>
+          <p>Điểm sàn 8 trường công an với thí sinh đăng ký xét kết hợp điểm thi tốt nghiệp hoặc chứng chỉ quốc ngoại ngữ quốc tế và bài thi đánh giá là 70/100, tương tự năm ngoái.</p>
+          <time>11/07/2026 · 12:03</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/10/download-1783684720-4281-1783684727.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=AeXyCVIhYCvsIdvwL7gsfg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/than-dong-lap-di-gianh-giai-thuong-khoa-hoc-danh-gia-5095698.html" target="_blank" rel="noopener">&#x27;Thần đồng lập dị&#x27; giành giải thưởng khoa học danh giá</a></h3>
+          <p>Từng là &#x27;hiện tượng mạng&#x27; vì hình ảnh tuềnh toàng, hài hước, &quot;thần đồng&quot; Wei Dongyi lại gây sốt vì giành giải khoa học công nghệ danh giá.</p>
+          <time>11/07/2026 · 07:02</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/10/uchihahaha-1783651275-8541-1783657435.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=z9ndqvKnBgH02RqOmH1dLA')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/nhung-bang-dai-hoc-giup-tim-viec-linh-hoat-nhat-o-my-5095472.html" target="_blank" rel="noopener">Những bằng đại học giúp tìm việc linh hoạt nhất ở Mỹ</a></h3>
+          <p>Cử nhân tiếng Anh hay các ngành xã hội dễ thích ứng với thị trường việc làm, dễ chuyển ngành, nghề hơn nhóm học Kỹ thuật hay Y tế.</p>
+          <time>11/07/2026 · 00:02</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/10/pic7-1783679175-2464-1783679218.png?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=DbJNHXucjj7-qGfQpLy0-A')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/nuoc-nao-chiem-mot-nua-luong-thep-cua-the-gioi-5096005.html" target="_blank" rel="noopener">Nước nào chiếm một nửa lượng thép của thế giới?</a></h3>
+          <p>Sản lượng thép của nước này lên đến gần 1 tỷ tấn mỗi năm, bằng hàng chục quốc gia phía sau cộng lại. Bạn có biết đây là nước nào?</p>
+          <time>10/07/2026 · 21:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cafebiz.cafebizcdn.vn/zoom/700_438/162123310254002176/2025/11/10/group-1000005307-1762747623773812051398-0-0-190-304-crop-17627481772001341512064.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">CafeBiz</span></div>
+          <h3><a href="https://cafebiz.vn/eric-vuong-176251110111651688.chn" target="_blank" rel="noopener">Eric Vương</a></h3>
+          <p>Chủ tịch HĐQT HVA Group</p>
+          <time></time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cafebiz.cafebizcdn.vn/zoom/700_438/162123310254002176/2025/11/20/group-1000005385-17636344717601387707679-0-0-190-304-crop-17636344755421224458439.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">CafeBiz</span></div>
+          <h3><a href="https://cafebiz.vn/pham-duy-hieu-176251110111547427.chn" target="_blank" rel="noopener">Phạm Duy Hiếu</a></h3>
+          <p>Tổng Giám đốc Ngân hàng TMCP An Bình (ABBANK)</p>
+          <time></time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cafebiz.cafebizcdn.vn/zoom/700_438/162123310254002176/2025/11/10/group-1000005315-1762747623827470364021-0-0-190-304-crop-1762748014809476512793.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">CafeBiz</span></div>
+          <h3><a href="https://cafebiz.vn/hoang-thi-kim-dung-176251110111428764.chn" target="_blank" rel="noopener">Hoàng Thị Kim Dung</a></h3>
+          <p>Giám đốc Quỹ Genesia Ventures Việt Nam</p>
+          <time></time>
+        </div>
+      </article></div></div></div>
+  </section>
+  <section class="tab-panel" id="tab-cong-nghe">
+    <header class="sec-head"><h2>Công nghệ</h2><span class="rule"></span></header>
+    <p class="sec-brief">Mới nhất: Dùng máy tính báo &#x27;Activate Windows&#x27; có vi phạm bản quyền? (VnExpress, 12/07/2026 · 14:00).</p>
+    <div class="slide-nav"><button class="slide-btn prev" aria-label="Tin mới hơn">‹</button><span class="slide-hint">Kéo ngang hoặc bấm mũi tên để xem 8 tin cũ hơn</span><button class="slide-btn next" aria-label="Tin cũ hơn">›</button></div><div class="slide-track"><div class="slide-page"><div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/11/man-hinh-may-tinh-active-windo-7351-5816-1783784034.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=yxCGi90wc5674jV7fTE8iA')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://vnexpress.net/dung-may-tinh-bao-activate-windows-co-vi-pham-ban-quyen-5096371.html" target="_blank" rel="noopener">Dùng máy tính báo &#x27;Activate Windows&#x27; có vi phạm bản quyền?</a></h3>
+          <p>Máy tính của tôi có dòng chữ &quot;Activate Windows&quot;, xin hỏi sử dụng có xem là vi phạm bản quyền hay không?</p>
+          <time>12/07/2026 · 14:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://icdn.dantri.com.vn/2025/05/15/pi-network-coingape-1747295640842.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Dân Trí</span></div>
+          <h3><a href="https://dantri.com.vn/cong-nghe/diem-tuan-gia-pi-network-cham-day-iphone-14-het-hang-tai-viet-nam-20260711222658363.htm" target="_blank" rel="noopener">Điểm tuần: Giá Pi Network chạm đáy, iPhone 14 hết hàng tại Việt Nam</a></h3>
+          <p>(Dân trí) - Những thông tin công nghệ nổi bật tuần qua gồm giá Pi Network giảm kỷ lục, iPhone gập lộ thông tin dung lượng pin, Viettel trúng đấu giá đầu số 095.</p>
+          <time>12/07/2026 · 11:50</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/12/TenluataisudungTQ-1783790102-1606-1783796154.gif?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=1l852qyKqbFBdWAueXilvA&amp;t=image')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/he-thong-luoi-thu-hoi-ten-lua-tai-su-dung-cua-trung-quoc-5096385.html" target="_blank" rel="noopener">Hệ thống lưới thu hồi tên lửa tái sử dụng của Trung Quốc</a></h3>
+          <p>Sau khi phóng lên không gian, tầng thứ nhất của tên lửa Trường Chinh 10B đáp trở lại, được thu hồi bằng hệ thống lưới thành công.</p>
+          <time>12/07/2026 · 11:31</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://images2.thanhnien.vn/zoom/600_315/528068263637045248/2026/7/12/2-17838162109461319880411-0-46-559-940-crop-17838162168901882641107.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Thanh Niên</span></div>
+          <h3><a href="https://thanhnien.vn/nhieu-nguoi-mua-dieu-hoa-nhung-chua-hieu-y-nghia-cua-btu-185260712073103023.htm" target="_blank" rel="noopener">Nhiều người mua điều hòa nhưng chưa hiểu ý nghĩa của BTU</a></h3>
+          <p>Hiểu đúng ý nghĩa của BTU sẽ giúp người dùng dễ dàng chọn điều hòa đáp ứng nhu cầu mà không phải trả thêm chi phí.</p>
+          <time>12/07/2026 · 10:07</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/qjizd/2026_06_05/1x_1_3_.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/su-that-viec-netflix-bat-ngo-mo-dung-thu-mien-phi-tai-viet-nam-post1668437.html" target="_blank" rel="noopener">Sự thật việc Netflix bất ngờ mở dùng thử miễn phí tại Việt Nam</a></h3>
+          <p>Thông tin Netflix cho dùng thử miễn phí 30 ngày khiến nhiều người chú ý, nhưng điều kiện phía sau mới là điểm đáng nói.</p>
+          <time>12/07/2026 · 09:42</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/yqdlcqrwq/2026_07_11/02211072026_tin_don_iphone_18_pro_max.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://znews.vn/con-so-gay-soc-ve-iphone-18-pro-max-post1668221.html" target="_blank" rel="noopener">Con số gây sốc về iPhone 18 Pro Max</a></h3>
+          <p>Chi phí sản xuất iPhone 18 Pro Max có thể đắt hơn gần 300 USD so với bản tiền nhiệm, chủ yếu đến từ chip nhớ và bộ nhớ DRAM.</p>
+          <time>12/07/2026 · 09:14</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/11/67320-iphonefoldrendera-178373-5616-3234-1783732063.webp?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=7Tok3ZfhoUFUqyJRBVYuqA')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/dung-luong-pin-cua-iphone-gap-chua-den-5-000-mah-5096092.html" target="_blank" rel="noopener">Dung lượng pin của iPhone gập &#x27;chưa đến 5.000 mAh&#x27;</a></h3>
+          <p>Mẫu iPhone màn hình gập đầu tiên của Apple bị rò rỉ thông số pin 4.883 mAh, thấp hơn nhiều so với các tin đồn trước đó.</p>
+          <time>12/07/2026 · 09:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://images2.thanhnien.vn/zoom/600_315/528068263637045248/2026/7/11/1-1783788997006501731411-0-78-559-972-crop-1783789005660814068277.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Thanh Niên</span><span class="hot-badge">2 báo cùng đưa</span></div>
+          <h3><a href="https://thanhnien.vn/5-dau-hieu-canh-bao-pin-lithium-ion-co-the-boc-chay-185260712002521814.htm" target="_blank" rel="noopener">5 dấu hiệu cảnh báo pin lithium-ion có thể bốc cháy</a></h3>
+          <p>Nhận biết sớm các dấu hiệu hư hỏng của pin lithium-ion có thể giúp giảm nguy cơ cháy và bảo vệ thiết bị.</p>
+          <time>12/07/2026 · 08:55</time>
+        </div>
+      </article></div></div><div class="slide-page"><div class="grid">
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://photo.znews.vn/w660/Uploaded/yqdlcqrwq/2026_07_07/01407082026_murata_electronics_kumihimo_tech_camp_2026.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Znews</span></div>
+          <h3><a href="https://znews.vn/ngach-moi-cua-ai-post1667102.html" target="_blank" rel="noopener">Ngách mới của AI</a></h3>
+          <p>AI là hướng đi tiềm năng của công nghệ y tế, song cần đảm bảo chất lượng dữ liệu và một số yếu tố để mô hình hoạt động chính xác.</p>
+          <time>12/07/2026 · 08:37</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://images2.thanhnien.vn/zoom/600_315/528068263637045248/2026/7/12/editphotospxqjjnwgm-1783817124-100-0-1600-2400-crop-17838176407911411116407.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Thanh Niên</span><span class="hot-badge">3 báo cùng đưa</span></div>
+          <h3><a href="https://thanhnien.vn/gia-bitcoin-hom-nay-1272026-nghi-si-my-keu-goi-dieu-tra-ong-trump-vi-tien-so-185260712072514584.htm" target="_blank" rel="noopener">Giá Bitcoin hôm nay 12.7.2026: Nghị sĩ Mỹ kêu gọi điều tra ông Trump vì tiền số</a></h3>
+          <p>Một nhóm thượng nghị sĩ đảng Dân chủ cáo buộc Tổng thống Mỹ Donald Trump trục lợi bất chính từ các dự án tiền số, kêu gọi một cuộc điều tra chính thức.</p>
+          <time>12/07/2026 · 08:17</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://icdn.dantri.com.vn/2026/07/11/thumbchi-lam-anh-thumb-1783778818763.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Dân Trí</span></div>
+          <h3><a href="https://dantri.com.vn/cong-nghe/top-3-laptop-gaming-acer-nitro-propanel-noi-bat-nam-2026-20260711211101603.htm" target="_blank" rel="noopener">Top 3 laptop gaming Acer Nitro ProPanel nổi bật năm 2026</a></h3>
+          <p>(Dân trí) - Dòng laptop gaming Nitro ProPanel mang đến nhiều lựa chọn về cấu hình, giữ vững giá trị cốt lõi như màn hình chất lượng cao, hiệu năng mạnh và khả năng nâng cấp linh hoạt.</p>
+          <time>12/07/2026 · 08:00</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://vcdn1-vnexpress.vnecdn.net/2026/07/11/11-hirenow-1783762595-6565-1783782384.jpg?w=1200&amp;h=0&amp;q=100&amp;dpr=1&amp;fit=crop&amp;s=R8en771Enz31ORcA3mz7Ng')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">VnExpress</span></div>
+          <h3><a href="https://vnexpress.net/5-startup-viet-duoc-cap-von-moi-khong-hoan-lai-5096298.html" target="_blank" rel="noopener">5 startup Việt được cấp vốn mồi không hoàn lại</a></h3>
+          <p>Năm startup được cấp vốn trị giá 98 triệu đồng mỗi doanh nghiệp để thử nghiệm các giải pháp tăng trưởng mới.</p>
+          <time>12/07/2026 · 07:16</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://icdn.dantri.com.vn/2026/07/10/1docx-1783654772995.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Dân Trí</span></div>
+          <h3><a href="https://dantri.com.vn/cong-nghe/lam-dung-ai-nhieu-nguoi-tre-quen-cach-viet-noi-chuyen-nhu-may-moc-20260710104440293.htm" target="_blank" rel="noopener">Lạm dụng AI, nhiều người trẻ quên cách viết, nói chuyện như máy móc</a></h3>
+          <p>(Dân trí) - Dùng AI 24/7, nhiều người thừa nhận họ dần quên cách viết, lệ thuộc vào công cụ này để giao tiếp và lo ngại phong cách ngôn ngữ cá nhân dần biến mất.</p>
+          <time>12/07/2026 · 07:08</time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cdn2.tuoitre.vn/thumb_w/1200/471584752817336320/2026/7/10/1000011804-1783555823447715273801-58-0-733-1080-crop-17836653218191802076229.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Tuổi Trẻ</span></div>
+          <h3><a href="https://tuoitre.vn/meta-chi-manh-cho-ai-chuan-bi-san-xuat-chip-iris-tu-thang-9-10026071013392579.htm" target="_blank" rel="noopener">Meta chi mạnh cho AI, chuẩn bị sản xuất chip Iris từ tháng 9</a></h3>
+          <p>Meta dự kiến đưa chip trí tuệ nhân tạo (AI) tự phát triển có tên Iris vào sản xuất từ tháng 9, đồng thời đặt mục tiêu tăng gấp đôi năng lực tính toán lên 14 gigawatt vào năm 2027 nhằm phục vụ các hệ…</p>
+          <time></time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cdn2.tuoitre.vn/thumb_w/1200/471584752817336320/2026/7/10/z8026805003218db379d6a01cbacd40e89e220e14a9fab-1783652368185401327741-107-0-1707-2560-crop-17836525246921531423150.jpg')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Tuổi Trẻ</span></div>
+          <h3><a href="https://tuoitre.vn/openai-ra-mat-chatgpt-work-cho-tao-tai-lieu-website-bang-ai-100260710100449537.htm" target="_blank" rel="noopener">OpenAI ra mắt ChatGPT Work, cho tạo tài liệu, website bằng AI</a></h3>
+          <p>OpenAI ra mắt ChatGPT Work, trợ lý AI kết hợp ChatGPT và Codex, cho phép tạo tài liệu, bài thuyết trình và website ngay trên một nền tảng.</p>
+          <time></time>
+        </div>
+      </article>
+      <article class="card">
+        <div class="thumb" style="background-image:url('https://cdn2.tuoitre.vn/thumb_w/1200/471584752817336320/2026/7/8/photo-1783484908471-17834849095831095535622-125-136-772-1171-crop-17834849829251828303978.png')"></div>
+        <div class="card-body">
+          <div class="card-top"><span class="src">Tuổi Trẻ</span></div>
+          <h3><a href="https://tuoitre.vn/thien-khoi-duoc-vinh-danh-tai-vars-awards-2026-100260708113435804.htm" target="_blank" rel="noopener">Thiên Khôi được vinh danh tại VARS Awards 2026</a></h3>
+          <p>Thiên Khôi Group được vinh danh Top 5 nền tảng công nghệ cho môi giới bất động sản và khách hàng tại VARS Awards 2026.</p>
+          <time></time>
+        </div>
+      </article></div></div></div>
+  </section></main>
+
+<footer>
+  <div class="wrap">
+    <h4>Nguồn tin</h4>
+    <p>VnExpress · Dân Trí · CafeF · CafeBiz · Znews · Thanh Niên · Tuổi Trẻ · VietNamNet · Người Lao Động · VnEconomy · Vietcetera · Tatler · BrandsVietnam</p>
+    <details>
+      <summary>Trạng thái tải từng nguồn (lần cập nhật gần nhất)</summary>
+      <ul class="diag"><li class="ok">✓ VnExpress — 60 tin <span class="diag-url">https://vnexpress.net/rss/kinh-doanh.rss</span></li><li class="ok">✓ CafeF — 50 tin <span class="diag-url">https://cafef.vn/thi-truong-chung-khoan.rss</span></li><li class="err">✗ CafeF — feed rỗng <span class="diag-url">https://cafef.vn/rss.chn</span></li><li class="ok">✓ Dân Trí — 100 tin <span class="diag-url">https://dantri.com.vn/rss/kinh-doanh.rss</span></li><li class="ok">✓ Thanh Niên — 50 tin <span class="diag-url">https://thanhnien.vn/rss/kinh-te.rss</span></li><li class="ok">✓ Tuổi Trẻ — 50 tin <span class="diag-url">https://tuoitre.vn/rss/kinh-doanh.rss</span></li><li class="ok">✓ VietNamNet — 1000 tin <span class="diag-url">https://vietnamnet.vn/rss/kinh-doanh.rss</span></li><li class="ok">✓ VnEconomy — 50 tin <span class="diag-url">https://vneconomy.vn/tai-chinh.rss</span></li><li class="ok">✓ CafeBiz — 6 tin <span class="diag-url">https://cafebiz.vn/rss/khoi-quan-tri-phat-trien-doanh-nghiep.rss</span></li><li class="ok">✓ CafeBiz — 4 tin <span class="diag-url">https://cafebiz.vn/rss/khoi-san-xuat-thuong-mai.rss</span></li><li class="ok">✓ CafeBiz — 5 tin <span class="diag-url">https://cafebiz.vn/rss/khoi-truyen-thong-thuong-hieu.rss</span></li><li class="ok">✓ Znews — 47 tin <span class="diag-url">https://znews.vn/rss/kinh-doanh-tai-chinh.rss</span></li><li class="ok">✓ BrandsVietnam — 19 tin (đọc từ trang) <span class="diag-url">scrape:brandsvietnam</span></li><li class="ok">✓ Người Lao Động — 50 tin <span class="diag-url">https://nld.com.vn/rss/kinh-te.rss</span></li><li class="ok">✓ VietNamNet — 1000 tin <span class="diag-url">https://vietnamnet.vn/rss/thi-truong.rss</span></li><li class="ok">✓ VnExpress — 60 tin <span class="diag-url">https://vnexpress.net/rss/thoi-su.rss</span></li><li class="ok">✓ Dân Trí — 100 tin <span class="diag-url">https://dantri.com.vn/rss/xa-hoi.rss</span></li><li class="ok">✓ CafeBiz — 11 tin <span class="diag-url">https://cafebiz.vn/rss/khoi-xa-hoi-giao-duc-dich-vu.rss</span></li><li class="ok">✓ Znews — 42 tin <span class="diag-url">https://znews.vn/rss/xa-hoi.rss</span></li><li class="ok">✓ Tuổi Trẻ — 50 tin <span class="diag-url">https://tuoitre.vn/rss/thoi-su.rss</span></li><li class="ok">✓ VietNamNet — 1000 tin <span class="diag-url">https://vietnamnet.vn/rss/thoi-su.rss</span></li><li class="ok">✓ Người Lao Động — 50 tin <span class="diag-url">https://nld.com.vn/rss/thoi-su.rss</span></li><li class="ok">✓ Tatler — 100 tin <span class="diag-url">https://news.google.com/rss/search?q=site:tatlerasia.com&amp;hl=vi&amp;gl=VN&amp;ceid=VN:vi</span></li><li class="err">✗ Vietcetera — HTTP 404 <span class="diag-url">https://vietcetera.com/vn/feed</span></li><li class="err">✗ Vietcetera — HTTP 404 <span class="diag-url">https://vietcetera.com/feed</span></li><li class="ok">✓ Dân Trí — 100 tin <span class="diag-url">https://dantri.com.vn/rss/doi-song.rss</span></li><li class="ok">✓ Thanh Niên — 50 tin <span class="diag-url">https://thanhnien.vn/rss/doi-song.rss</span></li><li class="ok">✓ VnExpress — 60 tin <span class="diag-url">https://vnexpress.net/rss/gia-dinh.rss</span></li><li class="ok">✓ VnExpress — 60 tin <span class="diag-url">https://vnexpress.net/rss/suc-khoe.rss</span></li><li class="ok">✓ CafeBiz — 3 tin <span class="diag-url">https://cafebiz.vn/rss/khoi-tai-chinh-ngan-hang.rss</span></li><li class="ok">✓ Thanh Niên — 50 tin <span class="diag-url">https://thanhnien.vn/rss/the-gioi/kinh-te-the-gioi.rss</span></li><li class="ok">✓ VnExpress — 60 tin <span class="diag-url">https://vnexpress.net/rss/giao-duc.rss</span></li><li class="err">✗ VnEconomy — feed rỗng <span class="diag-url">https://vneconomy.vn/chuyen-doi-so.rss</span></li><li class="ok">✓ VnExpress — 60 tin <span class="diag-url">https://vnexpress.net/rss/so-hoa.rss</span></li><li class="ok">✓ Dân Trí — 100 tin <span class="diag-url">https://dantri.com.vn/rss/cong-nghe.rss</span></li><li class="ok">✓ Znews — 22 tin <span class="diag-url">https://znews.vn/rss/cong-nghe.rss</span></li><li class="ok">✓ Thanh Niên — 50 tin <span class="diag-url">https://thanhnien.vn/rss/cong-nghe.rss</span></li><li class="ok">✓ VietNamNet — 36 tin <span class="diag-url">https://vietnamnet.vn/rss/cong-nghe.rss</span></li><li class="ok">✓ Tuổi Trẻ — 50 tin <span class="diag-url">https://tuoitre.vn/rss/nhip-song-so.rss</span></li><li class="ok">✓ CafeBiz — 5 tin <span class="diag-url">https://cafebiz.vn/rss/khoi-cong-nghe-doi-moi-sang-tao.rss</span></li></ul>
+    </details>
+    <p class="disclaimer">Tiêu đề và mô tả lấy trực tiếp từ RSS chính thức của các báo. Nhãn “N báo cùng đưa” và mục Điểm nhanh do máy tổng hợp từ tiêu đề. Bấm vào tin để đọc bài đầy đủ tại trang gốc.</p>
+  </div>
+</footer>
+
+<script>
+function activate(id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.target === id));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === id));
+  window.scrollTo({top: 0, behavior: 'instant'});
+}
+document.querySelectorAll('.tab-btn, .brief-link').forEach(el =>
+  el.addEventListener('click', () => activate(el.dataset.target)));
+document.querySelectorAll('.tab-panel').forEach(panel => {
+  const track = panel.querySelector('.slide-track');
+  if (!track) return;
+  panel.querySelectorAll('.slide-btn').forEach(btn =>
+    btn.addEventListener('click', () => track.scrollBy({left: btn.classList.contains('next') ? track.clientWidth : -track.clientWidth, behavior: 'smooth'})));
+});
+</script>
+</body>
+</html>
