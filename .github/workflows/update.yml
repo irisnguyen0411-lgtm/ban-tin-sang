@@ -2,9 +2,8 @@ name: "Cap nhat Ban Tin Sang"
 
 on:
   schedule:
-    - cron: "30 22 * * *"
-    - cron: "30 4 * * *"
-    - cron: "30 10 * * *"
+    - cron: "30 0 * * *"
+    - cron: "0 11 * * *"
   workflow_dispatch: {}
 
 permissions:
