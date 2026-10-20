@@ -8,6 +8,7 @@ của người đọc chỉ tải một trang HTML tĩnh.
 
 import html
 import json
+import os
 import re
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -136,11 +137,55 @@ PERSON_PROFILE_RE = re.compile(
 )
 
 
-def is_person_profile(title: str) -> bool:
-    title = (title or "").strip()
-    if not PERSON_PROFILE_RE.match(title):
+ROLE_HINTS = (
+    "tiến sĩ", "thạc sĩ", "giáo sư", "phó giáo sư", "chủ tịch", "phó chủ tịch",
+    "tổng giám đốc", "phó tổng giám đốc", "giám đốc", "ceo", "founder", "co-founder",
+    "nhà sáng lập", "uỷ viên", "ủy viên", "thành viên", "đại biểu", "bộ trưởng",
+    "thứ trưởng", "cố vấn", "chuyên gia", "viện trưởng", "hiệu trưởng", "trưởng ban",
+    "đại sứ", "luật sư", "bác sĩ", "hội đồng", "hiệp hội",
+)
+
+
+def _looks_like_person_name(title: str) -> bool:
+    """Tiêu đề chỉ gồm 2-4 từ viết hoa chữ cái đầu, vd: 'Trần Quốc Thiện'."""
+    words = title.split()
+    if not 2 <= len(words) <= 4:
         return False
-    return len(title.split()) <= 6
+    return all(w.isalpha() and w[0].isupper() and w[1:].islower() for w in words)
+
+
+def is_person_profile(title: str, summary: str = "") -> bool:
+    """Thẻ giới thiệu nhân vật (không phải tin thời sự):
+    - tiêu đề bắt đầu bằng Ông/Bà/Tiến sĩ... (ngắn), hoặc
+    - tiêu đề chỉ là tên người VÀ phần tóm tắt mở đầu bằng chức danh/vai trò."""
+    title = (title or "").strip()
+    if PERSON_PROFILE_RE.match(title):
+        return len(title.split()) <= 6
+    if _looks_like_person_name(title):
+        head = (summary or "").strip().lower()[:90]
+        return any(hint in head for hint in ROLE_HINTS)
+    return False
+
+
+# Nội dung quảng bá doanh nghiệp (branded content): vinh danh, giải thưởng,
+# khuyến mãi, tài trợ... Không phải tin tức độc lập nên loại khỏi bản tin.
+BRANDED_RE = re.compile(
+    r"(vinh danh|đạt giải|nhận giải|trao giải|lễ trao|giải thưởng|thương hiệu quốc gia"
+    r"|thương hiệu mạnh|thương hiệu dẫn đầu|bình chọn|bảo trợ truyền thông|nhà tài trợ"
+    r"|đồng hành cùng|tri ân khách hàng|khuyến mãi|khuyến mại|chương trình ưu đãi"
+    r"|ưu đãi (?:lên|đến|tới|hấp dẫn|đặc biệt|độc quyền)"
+    r"|top \d+ (?:thương hiệu|doanh nghiệp|nơi làm việc|công ty|nhà tuyển dụng)"
+    r"|advertorial|\[pr\]|\(pr\)|\[quảng cáo\]|bài pr)",
+    re.IGNORECASE,
+)
+BRANDED_EXCEPT = ("nobel",)
+
+
+def is_branded(title: str, summary: str = "") -> bool:
+    text = f"{title or ''} {summary or ''}".lower()
+    if any(x in text for x in BRANDED_EXCEPT):
+        return False
+    return bool(BRANDED_RE.search(text))
 
 # ---------------------------------------------------------------- tiện ích
 
@@ -250,34 +295,104 @@ def scrape_vietcetera_category(slug: str):
 
 
 HR_REPORTS = [
-    {
-        "title": "Toàn cảnh xu hướng Nhân sự 2026: AI, kỹ năng và con người lên ngôi",
-        "source": "Tổng hợp đa nguồn",
+    {   # dự phòng nếu thiếu hr_items.json
+        "title": "Toàn cảnh xu hướng Nhân sự: AI, kỹ năng và vai trò mới của HR",
+        "source": "Bản Tin Sáng",
         "link": "xu-huong-nhan-su-2026.html",
-        "summary": (
-            "Bài tổng hợp & biên dịch riêng của Bản Tin Sáng từ các báo cáo Deloitte, "
-            "McKinsey, BCG, KPMG, Gartner, Mercer, WEF, LinkedIn và góc nhìn Việt Nam "
-            "(TopCV, Reeracoen, Anphabe, Microsoft) — có tóm tắt nhanh ở đầu bài, đọc "
-            "trong 8 phút thay vì phải lục từng báo cáo dài hàng chục trang."
-        ),
-        "days_ago": 0,
+        "summary": "Tổng hợp xu hướng nhân sự từ McKinsey, Gartner, AIHR, BCG, WEF, Deloitte.",
+        "dt_label": "",
     },
 ]
 
+HR_SOURCE_LABELS = {
+    "https://www.mckinsey.com/capabilities/people-and-organization/our-insights/hr-monitor":
+        "McKinsey · HR Monitor 2026",
+    "https://www.gartner.com/en/articles/future-of-work-trends":
+        "Gartner · 9 Future of Work Trends 2026",
+    "https://www.aihr.com/blog/hr-trends/": "AIHR · HR Trends 2027",
+    "https://www.aihr.com/blog/hr-digital-transformation-challenges/":
+        "AIHR · HR Digital Transformation",
+}
+HR_PAGE = "xu-huong-nhan-su-2026.html"
+
+
+def first_sentences(text: str, limit: int = 200) -> str:
+    """Lấy các câu đầu của đoạn tóm tắt dài sao cho không vượt quá giá trị limit."""
+    parts = re.split(r"(?<=[.!?])\s+", (text or "").strip())
+    out = ""
+    for part in parts:
+        cand = (out + " " + part).strip()
+        if out and len(cand) > limit:
+            break
+        out = cand
+    return truncate(out, limit)
+
+
+def _parse_hr_date(raw: str):
+    """'YYYY-MM-DD' | 'YYYY-MM' | 'YYYY' -> (datetime, nhãn hiển thị)."""
+    p = (raw or "").split("-")
+    y = int(p[0]) if p and p[0].isdigit() else 2026
+    m = int(p[1]) if len(p) > 1 else 1
+    d = int(p[2]) if len(p) > 2 else 1
+    dt = datetime(y, m, d, tzinfo=VN_TZ)
+    if len(p) == 3:
+        label = dt.strftime("%d/%m/%Y")
+    elif len(p) == 2:
+        label = dt.strftime("%m/%Y")
+    else:
+        label = f"Năm {y}"
+    return dt, label
+
 
 def static_hr_reports():
-    """Danh sách báo cáo/kiến thức HR chọn lọc từ các hãng tư vấn uy tín
-    (Deloitte, World Economic Forum...). Không có RSS nên cập nhật thủ công
-    trong mã nguồn; ngày đăng là ước lượng để sắp xếp thứ tự hiển thị."""
+    """Mục Kiến thức & Xu hướng Nhân sự: mỗi tin là một ý riêng, có trích dẫn nguồn
+    (tên tổ chức + báo cáo) và link về bài gốc. Dữ liệu nằm ở hr_items.json,
+    cùng nguồn dữ liệu với trang xu-huong-nhan-su-2026.html."""
     now = datetime.now(VN_TZ)
-    items = []
-    for rep in HR_REPORTS:
+    items = [{
+        "title": "Xem toàn bộ tin Nhân sự: lọc theo chủ đề và nguồn (McKinsey, Gartner, AIHR…)",
+        "link": HR_PAGE,
+        "summary": "Mỗi tin là một ý riêng kèm nguồn gốc và đường dẫn để đọc bản đầy đủ.",
+        "_source_override": "Bản Tin Sáng · Nhân sự",
+        "_dt_override": now,
+        "_dt_label": "",
+        "_static": True,
+    }]
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "hr_items.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+    except (OSError, ValueError):
+        data = None
+
+    if not data:
+        for rep in HR_REPORTS:
+            items.append({
+                "title": rep["title"], "link": rep["link"], "summary": rep["summary"],
+                "_source_override": rep["source"], "_dt_override": now,
+                "_dt_label": rep["dt_label"], "_static": True,
+            })
+        return items
+
+    for it in data:
+        srcs = it.get("sources") or []
+        if not srcs:
+            continue
+        first = srcs[0]
+        label = HR_SOURCE_LABELS.get(first.get("url", ""))
+        if not label:
+            label = " + ".join(dict.fromkeys(x["org"] for x in srcs))
+        link = next((x["url"] for x in srcs if x.get("url")), HR_PAGE)
+        dt, dt_label = _parse_hr_date(it.get("date", ""))
         items.append({
-            "title": rep["title"],
-            "link": rep["link"],
-            "summary": rep["summary"],
-            "_source_override": rep["source"],
-            "_dt_override": now - timedelta(days=rep["days_ago"]),
+            "title": it["title"],
+            "link": link,
+            "summary": first_sentences(it.get("summary", ""), 200),
+            "_source_override": label,
+            "_dt_override": dt,
+            "_dt_label": dt_label,
+            "_hr_group": first.get("url", "") if first.get("url", "") in HR_SOURCE_LABELS else "khac",
+            "_static": True,
         })
     return items
 
@@ -333,6 +448,7 @@ def collect():
     sections_out, diagnostics = [], []
     seen_links = set()
     seen_titles = set()
+    section_articles = []
 
     for si, section in enumerate(SECTIONS):
         articles = []
@@ -344,20 +460,29 @@ def collect():
             for e in entries:
                 link = (e.get("link") or "").strip()
                 title = strip_html(e.get("title") or "")
-                if not link or not title or link in seen_links:
+                is_static = bool(e.get("_static"))
+                if not link or not title or (link in seen_links and not is_static):
                     continue
                 title_key = normalize_title(title)
                 if title_key and title_key in seen_titles:
                     continue
-                if is_person_profile(title):
-                    continue
-                summary = truncate(strip_html(e.get("summary") or e.get("description") or ""))
-                if is_blocked(title, summary):
-                    continue
+                raw_summary = strip_html(e.get("summary") or e.get("description") or "")
+                summary = raw_summary if is_static else truncate(raw_summary)
+                if not is_static:
+                    if is_person_profile(title, raw_summary):
+                        continue
+                    if is_blocked(title, summary):
+                        continue
+                    if is_branded(title, summary):
+                        continue
                 dt = e.get("_dt_override") or entry_datetime(e)
                 articles.append({
                     "source": e.get("_source_override") or src,
                     "sec_id": section["id"],
+                    "si": si,
+                    "static": is_static,
+                    "dt_label": e.get("_dt_label", ""),
+                    "hr_group": e.get("_hr_group", ""),
                     "grams": title_ngrams(title),
                     "title": title,
                     "summary": summary,
@@ -369,6 +494,22 @@ def collect():
                 if title_key:
                     seen_titles.add(title_key)
 
+        section_articles.append(articles)
+
+    # Độ nóng ("N báo cùng đưa") tính TRƯỚC khi gộp tin trùng để không mất số báo.
+    pool = [a for arts in section_articles for a in arts]
+    compute_hotness([a for a in pool if not a["static"]])
+    for a in pool:
+        if a["static"]:
+            a["hot"], a["hot_gram"], a["hot_sources"] = 0, "", 1
+    dropped = dedupe_stories([a for a in pool if not a["static"]])
+    section_articles = [[a for a in arts if id(a) not in dropped] for arts in section_articles]
+
+    for si, section in enumerate(SECTIONS):
+        articles = section_articles[si]
+        if articles and all(a["static"] for a in articles):
+            sections_out.append({**section, "articles": pick_hr(articles, MAX_PER_SECTION)})
+            continue
         dated = sorted((a for a in articles if a["dt"]), key=lambda a: a["dt"], reverse=True)
         undated = [a for a in articles if not a["dt"]]
         keep_undated = undated[:3]
@@ -401,6 +542,8 @@ WEEKDAYS = ["Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "T
 def fmt_dt(dt):
     if not dt:
         return ""
+    if dt.hour == 0 and dt.minute == 0 and dt.second == 0:
+        return dt.strftime("%d/%m/%Y")   # nguồn chỉ có ngày (vd báo cáo HR)
     return dt.strftime("%d/%m/%Y · %H:%M")
 
 
@@ -439,7 +582,7 @@ def render(sections, diagnostics) -> str:
           <span class="src">{esc(art["source"])}</span>
           <h3><a href="{esc(art["link"])}" target="_blank" rel="noopener">{esc(art["title"])}</a></h3>
           <p>{esc(art["summary"])}</p>
-          <time>{fmt_dt(art["dt"])}</time>
+          <time>{art.get("dt_label") or fmt_dt(art["dt"])}</time>
         </div>
       </article>""")
         empty_note = "" if cards else '<p class="empty">Chuyên mục này chưa tải được tin trong lần cập nhật gần nhất.</p>'
@@ -591,6 +734,104 @@ def title_ngrams(title: str):
     return grams
 
 
+TOPIC_PATTERNS = [
+    ("gia-vang", re.compile(r"giá vàng|vàng miếng|vàng nhẫn|\bsjc\b|giá bạc", re.IGNORECASE)),
+    ("ty-gia", re.compile(r"tỷ giá|tỉ giá", re.IGNORECASE)),
+    ("gia-xang", re.compile(r"giá xăng|xăng dầu", re.IGNORECASE)),
+    ("vn-index", re.compile(r"vn-?index|chứng khoán hôm nay", re.IGNORECASE)),
+]
+
+
+def _topic_key(art):
+    """Tin cập nhật hằng ngày (giá vàng, tỷ giá, giá xăng, VN-Index) -> mỗi ngày
+    chỉ giữ 1 tin cho cả bản tin, dù nhiều báo/nhiều mục cùng đăng."""
+    if not art["dt"]:
+        return None
+    for name, rx in TOPIC_PATTERNS:
+        if rx.search(art["title"]):
+            return (name, art["dt"].date())
+    return None
+
+
+def _same_story(a, b):
+    ga, gb = a["grams"], b["grams"]
+    if not ga or not gb:
+        return False
+    inter = len(ga & gb)
+    return inter >= 5 or (inter >= 3 and inter / min(len(ga), len(gb)) >= 0.4)
+
+
+def pick_hr(articles, limit):
+    """Mục HR: tin xếp xen kẽ giữa các nguồn (McKinsey, Gartner, AIHR, khác...)
+    thay vì chỉ theo ngày, để nguồn đăng muộn/ít tin không bị đẩy khỏi trang."""
+    epoch = datetime(1970, 1, 1, tzinfo=VN_TZ)
+    head = [a for a in articles if not a["hr_group"]]          # thẻ "Xem toàn bộ"
+    groups = {}
+    for a in articles:
+        if a["hr_group"]:
+            groups.setdefault(a["hr_group"], []).append(a)
+    order = sorted(groups, key=lambda g: max(x["dt"] or epoch for x in groups[g]), reverse=True)
+    for g in order:
+        groups[g].sort(key=lambda a: a["dt"] or epoch, reverse=True)
+    picked = list(head)
+    i = 0
+    while len(picked) < limit and any(groups[g][i:] for g in order):
+        for g in order:
+            if i < len(groups[g]) and len(picked) < limit:
+                picked.append(groups[g][i])
+        i += 1
+    return picked
+
+
+def dedupe_stories(pool):
+    """Trả về tập id() của các bài cần bỏ: mỗi câu chuyện chỉ còn 1 bài trong cả
+    bản tin. Ưu tiên chuyên mục đứng trước trong SECTIONS (mục tổng quát hơn),
+    trong đó chọn bài có ảnh và mới nhất."""
+    n = len(pool)
+    parent = list(range(n))
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    def union(x, y):
+        rx, ry = find(x), find(y)
+        if rx != ry:
+            parent[ry] = rx
+
+    keys = [_topic_key(a) for a in pool]
+    by_key = {}
+    for i, k in enumerate(keys):
+        if k is not None:
+            if k in by_key:
+                union(by_key[k], i)
+            else:
+                by_key[k] = i
+    for i in range(n):
+        for j in range(i + 1, n):
+            if find(i) != find(j) and _same_story(pool[i], pool[j]):
+                union(i, j)
+
+    clusters = {}
+    for i in range(n):
+        clusters.setdefault(find(i), []).append(pool[i])
+
+    epoch = datetime(1970, 1, 1, tzinfo=VN_TZ)
+    dropped = set()
+    for members in clusters.values():
+        if len(members) < 2:
+            continue
+        best_si = min(a["si"] for a in members)
+        cands = [a for a in members if a["si"] == best_si]
+        winner = max(cands, key=lambda a: (bool(a["thumb"]), a["dt"] or epoch))
+        for a in members:
+            if a is not winner:
+                dropped.add(id(a))
+    return dropped
+
+
 def compute_hotness(all_articles):
     """Đếm mỗi cụm từ xuất hiện ở bao nhiêu BÁO khác nhau."""
     gram_sources = {}
@@ -617,7 +858,7 @@ def recency_weight(dt, now):
 
 
 def pick_highlights(sections, now, limit=12):
-    pool = [a for s in sections for a in s["articles"]]
+    pool = [a for s in sections for a in s["articles"] if not a.get("static")]
     for a in pool:
         a["score"] = a["hot"] * 2.0 + recency_weight(a["dt"], now) * 1.5
     pool.sort(key=lambda a: (a["score"], a["dt"] or datetime(1970, 1, 1, tzinfo=VN_TZ)),
@@ -707,7 +948,7 @@ def render_v2(sections, diagnostics, highlights, summaries) -> str:
           <div class="card-top"><span class="src">{esc(art["source"])}</span>{hot_badge}</div>
           <h3><a href="{esc(art["link"])}" target="_blank" rel="noopener">{esc(art["title"])}</a></h3>
           <p>{esc(art["summary"])}</p>
-          <time>{fmt_dt(art["dt"])}</time>
+          <time>{art.get("dt_label") or fmt_dt(art["dt"])}</time>
         </div>
       </article>"""
 
@@ -926,7 +1167,7 @@ def main():
     # --- phiên bản 2: tab Tổng hợp + Điểm nhanh ---
     now = datetime.now(VN_TZ)
     all_articles = [a for s in sections for a in s["articles"]]
-    gram_score, gram_sources = compute_hotness(all_articles)
+    gram_score, gram_sources = {}, {}   # độ nóng đã tính trong collect() trước khi gộp tin trùng
     highlights = pick_highlights(sections, now, limit=12)
     summaries = {s["id"]: section_summary(s, gram_sources) for s in sections}
     with open("v2.html", "w", encoding="utf-8") as f:
